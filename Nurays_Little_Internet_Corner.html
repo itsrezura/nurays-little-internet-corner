@@ -1,0 +1,3505 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" id="themeColor" content="#fff6f8">
+  <meta name="description" content="Nuray's tiny corner of the internet — cats, memes, cozy chaos, and small surprises.">
+  <title>Nuray's Little Internet Corner 🐾</title>
+  <script>
+    (function() {
+      try {
+        var savedTheme = window.localStorage.getItem("nuray-corner-theme");
+        var preferredTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        var initialTheme = savedTheme === "dark" || savedTheme === "light" ? savedTheme : preferredTheme;
+        document.documentElement.dataset.theme = initialTheme;
+        document.getElementById("themeColor").setAttribute("content", initialTheme === "dark" ? "#15111d" : "#fff6f8");
+      } catch (error) {
+        document.documentElement.dataset.theme = "light";
+      }
+    }());
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #443b4f;
+      --muted: #746a7f;
+      --pink: #ff8fb8;
+      --pink-soft: #ffddeb;
+      --lavender: #c9b7ff;
+      --lavender-deep: #9b7fe7;
+      --blue: #9edcf4;
+      --blue-deep: #66bddd;
+      --cream: #fff7e9;
+      --yellow: #ffd66b;
+      --white: #fffdfd;
+      --line: rgba(77, 59, 94, .11);
+      --shadow: 0 28px 80px rgba(75, 53, 94, .12);
+      --shadow-small: 0 12px 34px rgba(75, 53, 94, .1);
+      --radius-xl: 30px;
+      --radius-lg: 24px;
+      --radius-md: 16px;
+    }
+
+    html[data-theme="dark"] {
+      color-scheme: dark;
+      --ink: #f5f0fb;
+      --muted: #b9afc7;
+      --pink: #ff91bd;
+      --pink-soft: #573246;
+      --lavender: #b6a3ef;
+      --lavender-deep: #ab92ff;
+      --blue: #80cce6;
+      --blue-deep: #65bddf;
+      --cream: #2b2531;
+      --yellow: #f4cf72;
+      --white: #211b29;
+      --line: rgba(231, 217, 247, .11);
+      --shadow: 0 30px 85px rgba(5, 3, 12, .46);
+      --shadow-small: 0 13px 38px rgba(5, 3, 12, .36);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      color: var(--ink);
+      font-family: "Quicksand", sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+      overflow-x: hidden;
+      background:
+        radial-gradient(circle at 8% 7%, rgba(255, 202, 222, .58), transparent 25rem),
+        radial-gradient(circle at 94% 12%, rgba(180, 225, 255, .52), transparent 27rem),
+        radial-gradient(circle at 72% 58%, rgba(216, 201, 255, .34), transparent 32rem),
+        linear-gradient(145deg, #fffdfd 0%, #fffbf2 52%, #faf7ff 100%);
+      transition: color .35s ease, background .35s ease;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .22;
+      z-index: -1;
+      background-image: radial-gradient(rgba(116, 91, 143, .13) 1px, transparent 1px);
+      background-size: 22px 22px;
+      mask-image: linear-gradient(to bottom, black, transparent 80%);
+    }
+
+    .scroll-progress {
+      position: fixed;
+      z-index: 10001;
+      inset: 0 0 auto;
+      height: 3px;
+      pointer-events: none;
+      background: transparent;
+    }
+
+    .scroll-progress span {
+      display: block;
+      width: 0;
+      height: 100%;
+      border-radius: 0 999px 999px 0;
+      background: linear-gradient(90deg, var(--pink), var(--lavender-deep), var(--blue-deep));
+      box-shadow: 0 2px 10px rgba(155, 127, 231, .28);
+      transition: width .08s linear;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    button {
+      color: inherit;
+    }
+
+    button:focus-visible,
+    a:focus-visible,
+    [contenteditable="true"]:focus-visible {
+      outline: 4px solid rgba(102, 189, 221, .34);
+      outline-offset: 4px;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    ::selection {
+      color: #493a55;
+      background: #ffd2e4;
+    }
+
+    .loading-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at 50% 38%, #fff 0 8rem, transparent 20rem),
+        linear-gradient(145deg, #ffe6f0, #f0e8ff 48%, #dcf5ff);
+      transition: opacity .6s ease, visibility .6s ease;
+    }
+
+    .loading-screen.done {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .loader-card {
+      width: min(88vw, 390px);
+      padding: 34px;
+      text-align: center;
+      border: 2px solid rgba(255, 255, 255, .9);
+      border-radius: 32px;
+      box-shadow: var(--shadow);
+      background: rgba(255, 255, 255, .72);
+      backdrop-filter: blur(18px);
+    }
+
+    .loader-cat {
+      display: inline-block;
+      font-size: 64px;
+      animation: loader-hop .9s ease-in-out infinite;
+      filter: drop-shadow(0 8px 8px rgba(113, 80, 130, .14));
+    }
+
+    .loader-card h2 {
+      margin: 12px 0 6px;
+      font-family: "Fredoka", sans-serif;
+      font-size: clamp(1.45rem, 6vw, 2rem);
+    }
+
+    .loader-status {
+      min-height: 28px;
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .loader-track {
+      height: 12px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: #eee9f2;
+    }
+
+    .loader-fill {
+      height: 100%;
+      width: 0;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--pink), var(--lavender-deep), var(--blue-deep));
+      transition: width .45s cubic-bezier(.2,.8,.2,1);
+    }
+
+    .skip-link {
+      position: fixed;
+      left: 16px;
+      top: -80px;
+      z-index: 10000;
+      padding: 10px 16px;
+      border-radius: 14px;
+      background: #fff;
+      box-shadow: var(--shadow-small);
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .skip-link:focus {
+      top: 16px;
+    }
+
+    .site-nav {
+      position: fixed;
+      z-index: 100;
+      top: 14px;
+      left: 50%;
+      width: min(94vw, 1100px);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 11px 9px 13px;
+      transform: translateX(-50%);
+      border: 1px solid rgba(94, 76, 111, .1);
+      border-radius: 22px;
+      box-shadow: 0 14px 42px rgba(66, 48, 83, .1);
+      background: rgba(255, 255, 255, .82);
+      backdrop-filter: blur(22px) saturate(1.2);
+    }
+
+    .nav-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      flex: 0 0 auto;
+      font-family: "Fredoka", sans-serif;
+      font-weight: 700;
+      letter-spacing: -.015em;
+      text-decoration: none;
+    }
+
+    .nav-brand span {
+      display: grid;
+      width: 34px;
+      height: 34px;
+      place-items: center;
+      border: 1px solid rgba(255,255,255,.9);
+      border-radius: 11px;
+      background: linear-gradient(145deg, var(--pink-soft), #fff);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-left: auto;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .nav-links::-webkit-scrollbar {
+      display: none;
+    }
+
+    .nav-links a {
+      flex: 0 0 auto;
+      padding: 8px 12px;
+      border-radius: 12px;
+      color: var(--muted);
+      font-size: .88rem;
+      font-weight: 800;
+      text-decoration: none;
+      transition: background .2s ease, color .2s ease, transform .2s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--ink);
+      background: linear-gradient(135deg, rgba(255, 221, 235, .78), rgba(238, 230, 255, .82));
+      transform: translateY(-1px);
+    }
+
+    .nav-actions {
+      display: flex;
+      flex: 0 0 auto;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .sound-toggle,
+    .theme-toggle {
+      flex: 0 0 auto;
+      width: 38px;
+      height: 38px;
+      border: 0;
+      border-radius: 50%;
+      cursor: pointer;
+      background: #f5efff;
+      transition: transform .2s ease, background .2s ease;
+    }
+
+    .sound-toggle:hover,
+    .theme-toggle:hover {
+      transform: rotate(-8deg) scale(1.05);
+      background: #eae0ff;
+    }
+
+    .theme-toggle:hover {
+      transform: rotate(8deg) scale(1.05);
+    }
+
+    .floating-decor {
+      position: fixed;
+      z-index: -1;
+      pointer-events: none;
+      filter: drop-shadow(0 6px 8px rgba(84, 67, 111, .1));
+      animation: drift var(--dur, 7s) ease-in-out infinite;
+      animation-delay: var(--delay, 0s);
+      opacity: .52;
+    }
+
+    .d1 { top: 12%; left: 3%; font-size: 26px; --dur: 8s; }
+    .d2 { top: 21%; right: 5%; font-size: 34px; --dur: 7s; --delay: -2s; }
+    .d3 { top: 51%; left: 4%; font-size: 30px; --dur: 9s; --delay: -4s; }
+    .d4 { top: 74%; right: 3%; font-size: 30px; --dur: 8s; --delay: -1s; }
+    .d5 { top: 88%; left: 8%; font-size: 24px; --dur: 6s; --delay: -3s; }
+
+    main {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 104px 0 44px;
+    }
+
+    section {
+      position: relative;
+      margin: 96px 0;
+      scroll-margin-top: 112px;
+    }
+
+    .hero {
+      min-height: min(720px, calc(100vh - 120px));
+      display: grid;
+      grid-template-columns: 1.08fr .92fr;
+      align-items: center;
+      gap: clamp(24px, 5vw, 76px);
+      margin-top: 4px;
+      padding: clamp(30px, 5.5vw, 72px);
+      overflow: hidden;
+      border: 1px solid rgba(104, 82, 125, .1);
+      border-radius: 38px;
+      box-shadow: var(--shadow);
+      background:
+        linear-gradient(120deg, rgba(255,255,255,.9), rgba(255,255,255,.5)),
+        linear-gradient(145deg, #ffe5ef, #f2ebff 52%, #dff6ff);
+      isolation: isolate;
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      filter: blur(3px);
+    }
+
+    .hero::before {
+      left: -130px;
+      bottom: -150px;
+      background: rgba(255, 180, 208, .62);
+    }
+
+    .hero::after {
+      right: -90px;
+      top: -120px;
+      background: rgba(135, 213, 242, .62);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 16px;
+      padding: 8px 14px;
+      border: 1px solid rgba(255,255,255,.9);
+      border-radius: 999px;
+      box-shadow: 0 6px 18px rgba(95, 71, 115, .08);
+      background: rgba(255,255,255,.64);
+      color: #806592;
+      font-size: .9rem;
+      font-weight: 800;
+      letter-spacing: .02em;
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: "Fredoka", sans-serif;
+      line-height: 1.08;
+    }
+
+    h1 {
+      max-width: 700px;
+      margin: 0;
+      font-size: clamp(3rem, 6.3vw, 5.8rem);
+      letter-spacing: -.052em;
+    }
+
+    .nuray-name {
+      position: relative;
+      display: inline-block;
+      color: #8b68d1;
+      cursor: pointer;
+      text-shadow: 0 4px 0 rgba(255,255,255,.8);
+      user-select: none;
+    }
+
+    .nuray-name::after {
+      content: "";
+      position: absolute;
+      left: 4%;
+      right: 2%;
+      bottom: .02em;
+      height: .16em;
+      z-index: -1;
+      border-radius: 999px;
+      background: var(--yellow);
+      transform: rotate(-1deg);
+      opacity: .72;
+    }
+
+    .hero-copy {
+      max-width: 650px;
+      margin: 22px 0 28px;
+      color: #6f647d;
+      font-size: clamp(1rem, 2vw, 1.22rem);
+      font-weight: 650;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 48px;
+      padding: 11px 19px;
+      overflow: hidden;
+      border: 0;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(120, 84, 155, .18);
+      background: linear-gradient(135deg, #ff8fb8, #a987ef);
+      color: white;
+      cursor: pointer;
+      font-weight: 800;
+      text-decoration: none;
+      transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .btn::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(115deg, transparent 20%, rgba(255,255,255,.35), transparent 70%);
+      transform: translateX(-130%);
+      transition: transform .55s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px rgba(120, 84, 155, .22);
+      filter: saturate(1.08);
+    }
+
+    .btn:hover::after {
+      transform: translateX(130%);
+    }
+
+    .btn:active {
+      transform: translateY(1px) scale(.99);
+      box-shadow: 0 7px 18px rgba(120, 84, 155, .16);
+    }
+
+    .btn.secondary {
+      color: #6b5882;
+      background: rgba(255,255,255,.86);
+      border: 1px solid rgba(100,78,120,.1);
+    }
+
+    .hero-facts {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 34px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(88, 68, 106, .1);
+    }
+
+    .hero-fact {
+      padding: 11px 12px;
+      border: 1px solid rgba(92, 71, 114, .08);
+      border-radius: 14px;
+      background: rgba(255,255,255,.54);
+    }
+
+    .hero-fact strong {
+      display: block;
+      margin-bottom: 2px;
+      font-family: "Fredoka", sans-serif;
+      font-size: 1.12rem;
+      line-height: 1.2;
+    }
+
+    .hero-fact span {
+      color: var(--muted);
+      font-size: .75rem;
+      font-weight: 800;
+      letter-spacing: .035em;
+      text-transform: uppercase;
+    }
+
+    .cat-stage {
+      position: relative;
+      display: grid;
+      min-height: 520px;
+      place-items: center;
+      perspective: 900px;
+    }
+
+    .cat-orbit {
+      position: absolute;
+      width: min(100%, 500px);
+      aspect-ratio: 1;
+      border: 2px dashed rgba(142, 109, 198, .18);
+      border-radius: 50%;
+      animation: orbit-spin 28s linear infinite;
+    }
+
+    .cat-orbit span {
+      position: absolute;
+      display: grid;
+      width: 48px;
+      height: 48px;
+      place-items: center;
+      border: 2px solid white;
+      border-radius: 50%;
+      box-shadow: var(--shadow-small);
+      background: rgba(255,255,255,.78);
+      animation: orbit-spin 28s linear infinite reverse;
+    }
+
+    .cat-orbit span:nth-child(1) { left: 4%; top: 17%; }
+    .cat-orbit span:nth-child(2) { right: 1%; top: 36%; }
+    .cat-orbit span:nth-child(3) { left: 25%; bottom: -1%; }
+
+    .hero-cat-wrap {
+      position: relative;
+      width: min(96%, 500px);
+      cursor: pointer;
+      transform-style: preserve-3d;
+      animation: hero-float 4s ease-in-out infinite;
+      filter: drop-shadow(0 28px 30px rgba(105, 73, 126, .2));
+      transition: transform .18s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .hero-cat-wrap.boop {
+      animation: boop .55s cubic-bezier(.2,.9,.2,1);
+    }
+
+    .hero-cat {
+      width: 100%;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .cat-speech {
+      position: absolute;
+      top: 2%;
+      right: -2%;
+      max-width: 170px;
+      padding: 11px 14px;
+      border: 2px solid white;
+      border-radius: 18px 18px 18px 4px;
+      box-shadow: var(--shadow-small);
+      background: #fff;
+      color: #786286;
+      font-size: .86rem;
+      font-weight: 800;
+      opacity: 0;
+      transform: translateY(8px) rotate(3deg);
+      transition: opacity .2s ease, transform .2s ease;
+    }
+
+    .hero-cat-wrap:hover .cat-speech,
+    .hero-cat-wrap:focus-within .cat-speech {
+      opacity: 1;
+      transform: translateY(0) rotate(3deg);
+    }
+
+    .tiny-label {
+      position: absolute;
+      right: 12%;
+      bottom: 6%;
+      padding: 8px 12px;
+      border: 2px solid white;
+      border-radius: 13px;
+      box-shadow: var(--shadow-small);
+      background: var(--yellow);
+      font-family: "Fredoka", sans-serif;
+      font-size: .86rem;
+      font-weight: 700;
+      transform: rotate(-6deg);
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(92, 71, 114, .1);
+    }
+
+    .section-heading h2 {
+      margin: 0;
+      font-size: clamp(2.15rem, 4.5vw, 3.65rem);
+      letter-spacing: -.042em;
+    }
+
+    .section-heading p {
+      max-width: 440px;
+      margin: 0;
+      color: var(--muted);
+      font-weight: 650;
+    }
+
+    .section-kicker {
+      display: block;
+      margin-bottom: 7px;
+      color: #a17bd7;
+      font-size: .83rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.3fr .7fr;
+      gap: 22px;
+    }
+
+    .card {
+      border: 1px solid rgba(83,64,101,.1);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+      background: rgba(255,255,255,.82);
+      backdrop-filter: blur(16px) saturate(1.08);
+    }
+
+    .profile-card {
+      position: relative;
+      padding: clamp(26px, 4vw, 44px);
+      overflow: hidden;
+    }
+
+    .profile-card::after {
+      content: "✿";
+      position: absolute;
+      right: -15px;
+      top: -30px;
+      color: rgba(255, 151, 190, .16);
+      font-size: 150px;
+      line-height: 1;
+      transform: rotate(15deg);
+    }
+
+    .profile-top {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .profile-avatar {
+      width: 78px;
+      height: 78px;
+      flex: 0 0 auto;
+      padding: 7px;
+      overflow: hidden;
+      border: 3px solid white;
+      border-radius: 24px;
+      box-shadow: var(--shadow-small);
+      background: linear-gradient(145deg, #ffe0ec, #e4f7ff);
+      transform: rotate(-4deg);
+    }
+
+    .profile-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 18px;
+    }
+
+    .profile-top h3 {
+      margin: 0 0 4px;
+      font-size: 1.8rem;
+    }
+
+    .profile-top p {
+      margin: 0;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .profile-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin: 0;
+    }
+
+    .profile-item {
+      display: grid;
+      grid-template-columns: 38px 1fr;
+      gap: 10px;
+      align-items: start;
+      padding: 14px;
+      border: 1px solid rgba(108, 84, 131, .08);
+      border-radius: 17px;
+      background: rgba(255,249,251,.72);
+      transition: transform .2s ease, background .2s ease;
+    }
+
+    .profile-item:hover {
+      transform: translateY(-3px) rotate(-.5deg);
+      background: #fff;
+    }
+
+    .profile-icon {
+      display: grid;
+      width: 38px;
+      height: 38px;
+      place-items: center;
+      border-radius: 12px;
+      background: #f0e9ff;
+      font-size: 19px;
+    }
+
+    .profile-item dt {
+      color: var(--muted);
+      font-size: .76rem;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .profile-item dd {
+      margin: 1px 0 0;
+      font-weight: 800;
+    }
+
+    .inline-flag {
+      display: inline-block;
+      width: 30px;
+      height: 15px;
+      margin-left: 5px;
+      object-fit: cover;
+      border-radius: 3px;
+      box-shadow: 0 2px 6px rgba(44, 127, 158, .16);
+      vertical-align: -2px;
+    }
+
+    [contenteditable="true"] {
+      border-radius: 5px;
+      cursor: text;
+    }
+
+    [contenteditable="true"]:hover {
+      background: rgba(255, 214, 107, .25);
+    }
+
+    .edit-hint {
+      margin: 18px 0 0;
+      color: #a397ad;
+      font-size: .82rem;
+      font-weight: 700;
+    }
+
+    .kazakhstan-card {
+      position: relative;
+      display: flex;
+      min-height: 100%;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 30px;
+      overflow: hidden;
+      color: #2f6982;
+      background: linear-gradient(150deg, #d9f6ff, #96ddf1);
+      cursor: pointer;
+      user-select: none;
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+
+    .kazakhstan-card:hover {
+      transform: translateY(-5px) rotate(1deg);
+      box-shadow: 0 28px 65px rgba(68, 159, 193, .22);
+    }
+
+    .kazakhstan-card::before {
+      content: none;
+    }
+
+    .flag-frame {
+      display: block;
+      width: min(100%, 330px);
+      aspect-ratio: 2 / 1;
+      padding: 8px;
+      overflow: hidden;
+      border: 3px solid rgba(255,255,255,.9);
+      border-radius: 20px;
+      box-shadow: 0 16px 35px rgba(44, 127, 158, .16);
+      background: rgba(255,255,255,.58);
+    }
+
+    .flag-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+
+    .kazakhstan-card h3 {
+      max-width: 270px;
+      margin: 28px 0 8px;
+      font-size: 2rem;
+    }
+
+    .kazakhstan-card p {
+      margin: 0;
+      font-weight: 800;
+    }
+
+    .tap-clue {
+      display: inline-flex;
+      align-items: center;
+      align-self: flex-start;
+      gap: 7px;
+      margin-top: 28px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.48);
+      font-size: .82rem;
+      font-weight: 800;
+    }
+
+    .cat-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .cat-card {
+      position: relative;
+      min-height: 320px;
+      padding: 22px;
+      overflow: hidden;
+      border: 1px solid rgba(83,64,101,.09);
+      border-radius: 24px;
+      box-shadow: var(--shadow-small);
+      background: var(--cat-bg, #ffe9f1);
+      cursor: pointer;
+      isolation: isolate;
+      transition: transform .25s cubic-bezier(.2,.9,.2,1), box-shadow .25s ease, border-color .25s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .cat-card:nth-child(2) { --cat-bg: #ebe4ff; }
+    .cat-card:nth-child(3) { --cat-bg: #fff0c8; }
+    .cat-card:nth-child(4) { --cat-bg: #ddf5ff; }
+
+    .cat-card:hover {
+      transform: translateY(-7px) rotate(var(--tilt, -.5deg));
+      box-shadow: 0 22px 45px rgba(88, 67, 112, .18);
+      border-color: rgba(155,127,231,.22);
+    }
+
+    .cat-card:nth-child(even):hover { --tilt: 1deg; }
+
+    .cat-card::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      width: 170px;
+      height: 170px;
+      right: -60px;
+      bottom: -65px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.42);
+    }
+
+    .cat-sticker {
+      display: grid;
+      min-height: 150px;
+      place-items: center;
+      font-size: 94px;
+      line-height: 1;
+      filter: drop-shadow(0 12px 10px rgba(88, 61, 105, .12));
+      transform-origin: 50% 80%;
+      transition: transform .25s cubic-bezier(.2,.9,.2,1);
+    }
+
+    .cat-card:hover .cat-sticker,
+    .cat-card.active .cat-sticker {
+      transform: scale(1.12) rotate(-7deg);
+    }
+
+    .cat-card h3 {
+      margin: 4px 0 7px;
+      font-size: 1.35rem;
+    }
+
+    .cat-card p {
+      margin: 0;
+      color: #71647e;
+      font-weight: 700;
+    }
+
+    .speech-bubble {
+      position: absolute;
+      top: 18px;
+      right: 15px;
+      max-width: 135px;
+      padding: 8px 10px;
+      border: 2px solid #fff;
+      border-radius: 14px 14px 4px 14px;
+      box-shadow: var(--shadow-small);
+      background: #fff;
+      font-size: .72rem;
+      font-weight: 800;
+      opacity: 0;
+      transform: scale(.7) rotate(4deg);
+      transform-origin: 100% 100%;
+      transition: opacity .2s ease, transform .2s ease;
+    }
+
+    .cat-card:hover .speech-bubble,
+    .cat-card.active .speech-bubble {
+      opacity: 1;
+      transform: scale(1) rotate(4deg);
+    }
+
+    .meme-shell {
+      padding: clamp(20px, 4vw, 38px);
+      border-radius: 30px;
+      background:
+        linear-gradient(rgba(255,255,255,.84), rgba(255,255,255,.84)),
+        repeating-linear-gradient(0deg, transparent 0 31px, rgba(132, 161, 208, .14) 32px 33px);
+    }
+
+    .meme-gallery {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .polaroid {
+      position: relative;
+      display: flex;
+      min-height: 100%;
+      flex-direction: column;
+      padding: 10px 10px 19px;
+      border: 1px solid rgba(72, 58, 84, .09);
+      border-radius: 19px;
+      box-shadow: 0 12px 30px rgba(74, 57, 88, .11);
+      background: #fff;
+      transform: rotate(var(--r, -.6deg));
+      transition: transform .28s cubic-bezier(.2,.9,.2,1), box-shadow .28s ease;
+    }
+
+    .polaroid:nth-child(2) { --r: .7deg; }
+    .polaroid:nth-child(3) { --r: -.35deg; }
+    .polaroid:nth-child(4) { --r: .45deg; }
+    .polaroid:nth-child(5) { --r: -.7deg; }
+    .polaroid:nth-child(6) { --r: .55deg; }
+
+    .polaroid:hover {
+      z-index: 3;
+      transform: translateY(-6px) rotate(0deg) scale(1.015);
+      box-shadow: 0 22px 44px rgba(74, 57, 88, .17);
+    }
+
+    .tape {
+      position: absolute;
+      z-index: 2;
+      width: 78px;
+      height: 24px;
+      left: 50%;
+      top: -10px;
+      transform: translateX(-50%) rotate(var(--tr, -2deg));
+      background: rgba(255, 218, 110, .62);
+      border-left: 2px dashed rgba(180, 142, 45, .18);
+      border-right: 2px dashed rgba(180, 142, 45, .18);
+    }
+
+    .meme-picture {
+      position: relative;
+      height: 240px;
+      overflow: hidden;
+      border-radius: 13px;
+      background: linear-gradient(145deg, var(--pic-a, #ffe1ec), var(--pic-b, #dfeeff));
+    }
+
+    .meme-sprite {
+      width: 100%;
+      height: 100%;
+      background-image: url("https://nurays-little-internet-corner.therapist10t.chatgpt.site/nuray-meme-sheet-v2.webp");
+      background-repeat: no-repeat;
+      background-position: var(--x, 0%) var(--y, 0%);
+      background-size: 300% 200%;
+      transition: transform .35s ease, filter .35s ease;
+    }
+
+    .polaroid:hover .meme-sprite {
+      transform: scale(1.08) rotate(-2deg);
+      filter: saturate(1.08);
+    }
+
+    .meme-badge {
+      position: absolute;
+      right: 9px;
+      top: 9px;
+      display: grid;
+      width: 46px;
+      height: 46px;
+      place-items: center;
+      border: 2px solid white;
+      border-radius: 50%;
+      box-shadow: var(--shadow-small);
+      background: rgba(255,255,255,.82);
+      font-size: 23px;
+    }
+
+    .polaroid figcaption {
+      padding: 16px 9px 2px;
+      color: #5f5668;
+      font-family: "Fredoka", sans-serif;
+      font-size: .98rem;
+      font-weight: 600;
+      line-height: 1.35;
+    }
+
+    .generator-bar {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: center;
+      gap: 18px;
+      margin-top: 30px;
+      padding-top: 28px;
+      border-top: 2px dashed rgba(104, 83, 127, .14);
+    }
+
+    .generated-caption {
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      margin: 0;
+      padding: 14px 18px;
+      border-radius: 18px;
+      background: #f4eeff;
+      color: #725b8c;
+      font-weight: 800;
+    }
+
+    .generated-caption.pop {
+      animation: message-pop .42s cubic-bezier(.2,.9,.2,1);
+    }
+
+    .playground-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .interactive-card {
+      padding: clamp(24px, 4vw, 38px);
+      overflow: hidden;
+    }
+
+    .interactive-card h2 {
+      margin: 0 0 10px;
+      font-size: clamp(1.9rem, 4vw, 2.8rem);
+    }
+
+    .interactive-card > p {
+      margin: 0 0 24px;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .mood-card {
+      position: relative;
+      background:
+        radial-gradient(circle at 90% 8%, rgba(255,255,255,.9) 0 70px, transparent 72px),
+        linear-gradient(145deg, #f0e7ff, #e8f8ff);
+    }
+
+    .mood-result {
+      min-height: 160px;
+      display: grid;
+      grid-template-columns: 90px 1fr;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 20px;
+      padding: 20px;
+      border: 2px solid white;
+      border-radius: 24px;
+      background: rgba(255,255,255,.6);
+    }
+
+    .mood-emoji {
+      display: grid;
+      width: 86px;
+      height: 86px;
+      place-items: center;
+      border-radius: 28px;
+      box-shadow: var(--shadow-small);
+      background: #fff;
+      font-size: 48px;
+    }
+
+    .mood-result.mood-animate .mood-emoji {
+      animation: mood-reveal .65s cubic-bezier(.2,.9,.2,1);
+    }
+
+    .mood-result.mood-animate .mood-copy {
+      animation: mood-copy-in .48s cubic-bezier(.2,.9,.2,1);
+    }
+
+    .mood-label {
+      margin: 0 0 4px;
+      color: #a08baa;
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .mood-name {
+      margin: 0;
+      font-family: "Fredoka", sans-serif;
+      font-size: clamp(1.35rem, 4vw, 2rem);
+      line-height: 1.15;
+    }
+
+    .status-card {
+      background: linear-gradient(155deg, #fffaf1, #fff 60%, #ffe7f0);
+    }
+
+    .status-row {
+      margin-top: 17px;
+    }
+
+    .status-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 7px;
+      font-weight: 800;
+    }
+
+    .status-top span:last-child {
+      color: #9a83ad;
+    }
+
+    .meter {
+      height: 14px;
+      overflow: hidden;
+      border: 2px solid rgba(255,255,255,.92);
+      border-radius: 999px;
+      box-shadow: inset 0 2px 5px rgba(83, 64, 103, .1);
+      background: #eee8ef;
+    }
+
+    .meter-fill {
+      height: 100%;
+      width: 0;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--bar-a, #ff93b9), var(--bar-b, #b28ae9));
+      transition: width 1.1s cubic-bezier(.16,.85,.23,1);
+    }
+
+    .status-card.animated .meter-fill {
+      width: var(--value);
+    }
+
+    .meter.legendary .meter-fill {
+      position: relative;
+      width: 0;
+      background: linear-gradient(90deg, #ff8db8, #ffd66b, #77cde9, #af8dea, #ff8db8);
+      background-size: 200% 100%;
+      animation: rainbow-meter 2.2s linear infinite;
+    }
+
+    .status-card.animated .meter.legendary .meter-fill {
+      width: 100%;
+    }
+
+    .emergency {
+      padding: clamp(28px, 6vw, 60px);
+      overflow: hidden;
+      text-align: center;
+      border-radius: 42px;
+      background:
+        radial-gradient(circle at 20% 10%, rgba(255,255,255,.58) 0 60px, transparent 62px),
+        linear-gradient(135deg, #ffccd9, #fff0bd 50%, #d7edff);
+    }
+
+    .emergency h2 {
+      margin: 0 0 12px;
+      font-size: clamp(2.2rem, 6vw, 4.3rem);
+    }
+
+    .emergency p {
+      max-width: 650px;
+      margin: 0 auto 24px;
+      color: #746879;
+      font-weight: 700;
+    }
+
+    .emergency-controls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .emergency .btn.alarm {
+      min-height: 62px;
+      padding-inline: 26px;
+      background: linear-gradient(135deg, #ff678a, #ff926b);
+      font-size: 1.08rem;
+    }
+
+    .stop-btn {
+      display: none;
+      min-height: 62px;
+      color: #73535c;
+      background: white;
+    }
+
+    .stop-btn.visible {
+      display: inline-flex;
+    }
+
+    .cat-counter {
+      min-height: 35px;
+      margin: 21px 0 0;
+      font-family: "Fredoka", sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .memories {
+      padding: clamp(24px, 5vw, 48px);
+      background: rgba(255,255,255,.58);
+    }
+
+    .notes-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 24px 18px;
+      margin-top: 28px;
+    }
+
+    .sticky-note {
+      position: relative;
+      min-height: 210px;
+      padding: 28px 22px 22px;
+      border-radius: 5px 5px 18px 5px;
+      box-shadow: 0 14px 24px rgba(80, 64, 89, .13);
+      background: var(--note, #fff1a9);
+      transform: rotate(var(--rotate, -2deg));
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+
+    .sticky-note:nth-child(2) { --note: #ffdce9; --rotate: 2deg; }
+    .sticky-note:nth-child(3) { --note: #e5dbff; --rotate: -1deg; }
+    .sticky-note:nth-child(4) { --note: #d9f2ff; --rotate: 2.5deg; }
+    .sticky-note:nth-child(5) { --note: #e6f3ce; --rotate: 1deg; }
+    .sticky-note:nth-child(6) { --note: #ffe1c8; --rotate: -2.5deg; }
+    .sticky-note:nth-child(7) { --note: #f3e3ff; --rotate: 1.7deg; }
+
+    .sticky-note::before {
+      content: "";
+      position: absolute;
+      width: 62px;
+      height: 22px;
+      left: 50%;
+      top: -10px;
+      transform: translateX(-50%) rotate(-2deg);
+      background: rgba(255,255,255,.58);
+    }
+
+    .sticky-note:hover {
+      z-index: 2;
+      transform: translateY(-8px) rotate(0deg) scale(1.025);
+      box-shadow: 0 22px 35px rgba(80, 64, 89, .18);
+    }
+
+    .note-icon {
+      font-size: 31px;
+    }
+
+    .sticky-note h3 {
+      margin: 11px 0 8px;
+      font-size: 1.16rem;
+    }
+
+    .sticky-note p {
+      margin: 0;
+      color: #675d6e;
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
+    .message-machine {
+      display: grid;
+      grid-template-columns: .78fr 1.22fr;
+      align-items: stretch;
+      gap: 22px;
+    }
+
+    .message-controls,
+    .message-display {
+      padding: clamp(24px, 5vw, 42px);
+    }
+
+    .message-controls {
+      background: linear-gradient(145deg, #ffe0ec, #f5ecff);
+    }
+
+    .message-controls h2 {
+      margin: 0 0 12px;
+      font-size: clamp(2rem, 4vw, 3.1rem);
+    }
+
+    .message-controls p {
+      margin: 0 0 23px;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .message-display {
+      position: relative;
+      display: grid;
+      min-height: 265px;
+      place-items: center;
+      overflow: hidden;
+      text-align: center;
+      background: linear-gradient(155deg, #fffefc, #edf9ff);
+    }
+
+    .message-display::before,
+    .message-display::after {
+      content: "✦";
+      position: absolute;
+      color: var(--yellow);
+      font-size: 35px;
+      animation: twinkle 2s ease-in-out infinite;
+    }
+
+    .message-display::before { left: 9%; top: 13%; }
+    .message-display::after { right: 9%; bottom: 10%; animation-delay: -.9s; }
+
+    .message-output {
+      max-width: 600px;
+      margin: 0;
+      font-family: "Fredoka", sans-serif;
+      font-size: clamp(1.6rem, 4vw, 2.8rem);
+      font-weight: 600;
+      line-height: 1.18;
+    }
+
+    .message-output.pop {
+      animation: message-pop .5s cubic-bezier(.2,.9,.2,1);
+    }
+
+    .lower-grid {
+      display: grid;
+      grid-template-columns: 1.08fr .92fr;
+      gap: 22px;
+    }
+
+    .game-card,
+    .music-card {
+      padding: clamp(24px, 4vw, 38px);
+    }
+
+    .game-card h2,
+    .music-card h2 {
+      margin: 0 0 8px;
+      font-size: clamp(2rem, 4vw, 3rem);
+    }
+
+    .game-subtitle,
+    .music-card > p {
+      margin: 0 0 20px;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .game-arena {
+      position: relative;
+      height: 330px;
+      overflow: hidden;
+      border: 3px solid white;
+      border-radius: 26px;
+      box-shadow: inset 0 0 0 1px rgba(98,77,118,.08);
+      background:
+        radial-gradient(circle at 20% 30%, rgba(255,255,255,.78) 0 7px, transparent 8px),
+        radial-gradient(circle at 72% 68%, rgba(255,255,255,.72) 0 5px, transparent 6px),
+        linear-gradient(145deg, #d9f4ff, #f0e5ff 50%, #ffe5ee);
+      touch-action: manipulation;
+    }
+
+    .game-arena::before {
+      content: "catch zone";
+      position: absolute;
+      left: 16px;
+      bottom: 12px;
+      color: rgba(91,75,108,.26);
+      font-family: "Fredoka", sans-serif;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .catch-cat {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      display: grid;
+      width: 70px;
+      height: 70px;
+      place-items: center;
+      padding: 0;
+      border: 3px solid white;
+      border-radius: 24px;
+      box-shadow: 0 12px 20px rgba(87, 65, 105, .18);
+      background: #fff7e9;
+      cursor: pointer;
+      font-size: 39px;
+      transform: translate(-50%, -50%);
+      transition: left .25s cubic-bezier(.2,.9,.2,1), top .25s cubic-bezier(.2,.9,.2,1), transform .16s ease;
+    }
+
+    .catch-cat:hover {
+      transform: translate(-50%, -50%) scale(1.1) rotate(-5deg);
+    }
+
+    .catch-cat.caught {
+      animation: caught .3s ease;
+    }
+
+    .scorebar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-top: 14px;
+      font-weight: 800;
+    }
+
+    .score-pill {
+      padding: 8px 13px;
+      border-radius: 999px;
+      background: #f2ebff;
+      color: #765b93;
+    }
+
+    .game-win {
+      margin: 14px 0 0;
+      padding: 12px 14px;
+      border-radius: 15px;
+      background: #fff0b9;
+      font-weight: 800;
+      display: none;
+    }
+
+    .game-win.visible {
+      display: block;
+      animation: message-pop .5s ease;
+    }
+
+    .music-card {
+      background: linear-gradient(155deg, #ebe2ff, #fef8ff 55%, #ddf4ff);
+    }
+
+    .player {
+      padding: 20px;
+      border: 2px solid rgba(255,255,255,.9);
+      border-radius: 28px;
+      box-shadow: var(--shadow-small);
+      background: rgba(255,255,255,.66);
+    }
+
+    .album-row {
+      display: grid;
+      grid-template-columns: 130px 1fr;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .album-art {
+      position: relative;
+      aspect-ratio: 1;
+      overflow: hidden;
+      border: 5px solid white;
+      border-radius: 25px;
+      box-shadow: var(--shadow-small);
+      background: linear-gradient(145deg, #ffc6db, #bca5f4 56%, #9ee3f5);
+    }
+
+    .album-art::before {
+      content: "🐈";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      font-size: 62px;
+      transform: translate(-50%, -50%) rotate(-6deg);
+      filter: drop-shadow(0 9px 7px rgba(91,67,111,.13));
+    }
+
+    .vinyl {
+      position: absolute;
+      width: 58px;
+      height: 58px;
+      right: -8px;
+      bottom: -8px;
+      border: 5px solid #4c3b59;
+      border-radius: 50%;
+      box-shadow: inset 0 0 0 8px #6d587b, inset 0 0 0 10px #4c3b59;
+      background: #ff91ba;
+    }
+
+    .player.playing .vinyl {
+      animation: vinyl-spin 1.8s linear infinite;
+    }
+
+    .song-kicker {
+      margin: 0 0 5px;
+      color: #9c87a9;
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .song-title {
+      margin: 0;
+      font-family: "Fredoka", sans-serif;
+      font-size: 1.55rem;
+      line-height: 1.15;
+    }
+
+    .song-artist {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .progress {
+      height: 10px;
+      margin-top: 22px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: #e5ddeb;
+      cursor: pointer;
+    }
+
+    .progress-fill {
+      width: 0;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--pink), var(--lavender-deep));
+    }
+
+    .player-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .play-button {
+      display: grid;
+      width: 54px;
+      height: 54px;
+      place-items: center;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      box-shadow: 0 8px 18px rgba(104, 77, 126, .18);
+      background: linear-gradient(135deg, #ff8db8, #a889ee);
+      color: white;
+      cursor: pointer;
+      font-size: 21px;
+      transition: transform .2s ease;
+    }
+
+    .play-button:hover {
+      transform: scale(1.08) rotate(-4deg);
+    }
+
+    .time-label {
+      color: var(--muted);
+      font-size: .86rem;
+      font-weight: 800;
+    }
+
+    .replace-hint {
+      margin: 17px 0 0;
+      color: #9a8ca5;
+      font-size: .8rem;
+      font-weight: 700;
+    }
+
+    footer {
+      width: min(1160px, calc(100% - 30px));
+      margin: 20px auto 26px;
+      padding: 35px 20px 25px;
+      text-align: center;
+      border-top: 2px dashed rgba(106, 83, 128, .15);
+    }
+
+    .sleepy-cat {
+      display: inline-block;
+      margin-bottom: 6px;
+      font-size: 55px;
+      transform-origin: 50% 100%;
+      animation: sleepy-breathe 3s ease-in-out infinite;
+    }
+
+    footer p {
+      margin: 5px 0;
+      font-weight: 800;
+    }
+
+    footer small {
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .toast-region {
+      position: fixed;
+      z-index: 9000;
+      right: 18px;
+      bottom: 18px;
+      display: grid;
+      width: min(360px, calc(100vw - 36px));
+      gap: 10px;
+      pointer-events: none;
+    }
+
+    .toast {
+      padding: 14px 16px;
+      border: 2px solid white;
+      border-radius: 18px;
+      box-shadow: 0 18px 45px rgba(74, 53, 95, .2);
+      background: rgba(255,255,255,.92);
+      font-weight: 800;
+      animation: toast-in .42s cubic-bezier(.2,.9,.2,1), toast-out .35s ease 3.3s forwards;
+      backdrop-filter: blur(15px);
+    }
+
+    .particle {
+      position: fixed;
+      z-index: 8000;
+      pointer-events: none;
+      animation: particle-pop .9s ease-out forwards;
+      filter: drop-shadow(0 4px 4px rgba(73,51,90,.14));
+    }
+
+    .chaos-cat {
+      position: fixed;
+      z-index: 7600;
+      display: grid;
+      width: 62px;
+      height: 62px;
+      place-items: center;
+      pointer-events: none;
+      border: 3px solid white;
+      border-radius: 22px;
+      box-shadow: 0 15px 25px rgba(77,55,94,.18);
+      background: var(--chaos-bg, #fff1c9);
+      font-size: 34px;
+      animation: chaos-arrive .48s cubic-bezier(.2,.9,.2,1), chaos-bob 1.5s ease-in-out .5s infinite;
+    }
+
+    .rain-paw {
+      position: fixed;
+      z-index: 7400;
+      top: -60px;
+      pointer-events: none;
+      font-size: 27px;
+      animation: paw-rain var(--fall, 3s) linear forwards;
+    }
+
+    .max-chaos .chaos-cat {
+      animation: maximum-chaos .9s cubic-bezier(.2,.8,.2,1) infinite alternate;
+    }
+
+    .meow-face {
+      position: fixed;
+      z-index: 7300;
+      pointer-events: none;
+      font-size: 34px;
+      animation: meow-float 2.6s ease-in forwards;
+    }
+
+    .secret-cat-modal {
+      position: fixed;
+      z-index: 9100;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      background: rgba(76, 59, 89, .22);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .25s ease, visibility .25s ease;
+      backdrop-filter: blur(8px);
+    }
+
+    .secret-cat-modal.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .secret-card {
+      width: min(420px, 100%);
+      padding: 30px;
+      text-align: center;
+      border: 3px solid white;
+      border-radius: 32px;
+      box-shadow: var(--shadow);
+      background: linear-gradient(145deg, #fff, #f7edff);
+      transform: translateY(16px) scale(.92);
+      transition: transform .35s cubic-bezier(.2,.9,.2,1);
+    }
+
+    .secret-cat-modal.visible .secret-card {
+      transform: translateY(0) scale(1);
+    }
+
+    .secret-card .big-cat {
+      font-size: 86px;
+    }
+
+    .secret-card h2 {
+      margin: 8px 0 10px;
+      font-size: 2rem;
+    }
+
+    .secret-card p {
+      margin: 0 0 20px;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    /* A deliberately designed night palette: soft contrast, lavender glass, warm gold. */
+    html[data-theme="dark"] body {
+      background:
+        radial-gradient(circle at 8% 5%, rgba(128, 69, 112, .32), transparent 28rem),
+        radial-gradient(circle at 92% 12%, rgba(49, 117, 151, .28), transparent 30rem),
+        radial-gradient(circle at 70% 62%, rgba(89, 67, 139, .25), transparent 34rem),
+        linear-gradient(145deg, #15111d 0%, #1d1726 48%, #121923 100%);
+    }
+
+    html[data-theme="dark"] body::before {
+      opacity: .22;
+      background-image: radial-gradient(rgba(220, 205, 240, .16) 1px, transparent 1px);
+    }
+
+    html[data-theme="dark"] ::selection {
+      color: #fff8fc;
+      background: #784d72;
+    }
+
+    html[data-theme="dark"] .loading-screen {
+      background:
+        radial-gradient(circle at 50% 38%, rgba(64, 48, 78, .9) 0 8rem, transparent 21rem),
+        linear-gradient(145deg, #281b2a, #211a35 48%, #172c38);
+    }
+
+    html[data-theme="dark"] .loader-card,
+    html[data-theme="dark"] .site-nav,
+    html[data-theme="dark"] .card {
+      border-color: rgba(236, 222, 250, .11);
+      background: rgba(31, 25, 40, .82);
+      box-shadow: var(--shadow);
+    }
+
+    html[data-theme="dark"] .loader-track,
+    html[data-theme="dark"] .meter,
+    html[data-theme="dark"] .progress {
+      border-color: rgba(255,255,255,.08);
+      background: #30283a;
+    }
+
+    html[data-theme="dark"] .skip-link,
+    html[data-theme="dark"] .nav-brand span,
+    html[data-theme="dark"] .sound-toggle,
+    html[data-theme="dark"] .theme-toggle {
+      border-color: rgba(255,255,255,.11);
+      background: #30273c;
+      color: #f8f1fc;
+    }
+
+    html[data-theme="dark"] .sound-toggle:hover,
+    html[data-theme="dark"] .theme-toggle:hover {
+      background: #443452;
+    }
+
+    html[data-theme="dark"] .nav-links a:hover,
+    html[data-theme="dark"] .nav-links a.active {
+      color: #fff9fd;
+      background: linear-gradient(135deg, rgba(132, 74, 112, .56), rgba(83, 69, 135, .58));
+    }
+
+    html[data-theme="dark"] .hero {
+      border-color: rgba(235, 218, 249, .1);
+      background:
+        linear-gradient(120deg, rgba(31,25,40,.93), rgba(31,25,40,.56)),
+        linear-gradient(145deg, #45283b, #2f2948 52%, #203947);
+    }
+
+    html[data-theme="dark"] .hero::before {
+      background: rgba(165, 75, 118, .28);
+    }
+
+    html[data-theme="dark"] .hero::after {
+      background: rgba(70, 154, 184, .25);
+    }
+
+    html[data-theme="dark"] .eyebrow,
+    html[data-theme="dark"] .hero-fact,
+    html[data-theme="dark"] .cat-orbit span {
+      border-color: rgba(255,255,255,.1);
+      background: rgba(255,255,255,.06);
+      color: #d4c4df;
+    }
+
+    html[data-theme="dark"] .nuray-name {
+      color: #c6adff;
+      text-shadow: 0 4px 0 rgba(12, 8, 18, .8);
+    }
+
+    html[data-theme="dark"] .hero-copy,
+    html[data-theme="dark"] .cat-card p,
+    html[data-theme="dark"] .emergency p,
+    html[data-theme="dark"] .polaroid figcaption,
+    html[data-theme="dark"] .sticky-note p {
+      color: #c3b8ce;
+    }
+
+    html[data-theme="dark"] .btn.secondary,
+    html[data-theme="dark"] .cat-speech,
+    html[data-theme="dark"] .speech-bubble {
+      border-color: rgba(255,255,255,.1);
+      background: #30263a;
+      color: #efe7f7;
+    }
+
+    html[data-theme="dark"] .tiny-label {
+      border-color: rgba(255,255,255,.13);
+      color: #33263d;
+    }
+
+    html[data-theme="dark"] .section-heading,
+    html[data-theme="dark"] footer {
+      border-color: rgba(228, 212, 244, .12);
+    }
+
+    html[data-theme="dark"] .profile-avatar {
+      border-color: rgba(255,255,255,.15);
+      background: linear-gradient(145deg, #553145, #294452);
+    }
+
+    html[data-theme="dark"] .profile-item {
+      border-color: rgba(236, 220, 250, .08);
+      background: rgba(255,255,255,.045);
+    }
+
+    html[data-theme="dark"] .profile-item:hover {
+      background: rgba(255,255,255,.085);
+    }
+
+    html[data-theme="dark"] .profile-icon,
+    html[data-theme="dark"] .generated-caption,
+    html[data-theme="dark"] .score-pill {
+      background: #352b43;
+      color: #d9c8eb;
+    }
+
+    html[data-theme="dark"] [contenteditable="true"]:hover {
+      background: rgba(244, 207, 114, .14);
+    }
+
+    html[data-theme="dark"] .kazakhstan-card {
+      color: #eafaff;
+      background: linear-gradient(150deg, #173847, #176a83);
+    }
+
+    html[data-theme="dark"] .flag-frame,
+    html[data-theme="dark"] .tap-clue {
+      border-color: rgba(255,255,255,.16);
+      background: rgba(255,255,255,.1);
+    }
+
+    html[data-theme="dark"] .cat-card {
+      --cat-bg: #3b2735;
+      border-color: rgba(235, 217, 247, .09);
+    }
+
+    html[data-theme="dark"] .cat-card:nth-child(2) { --cat-bg: #302a49; }
+    html[data-theme="dark"] .cat-card:nth-child(3) { --cat-bg: #443824; }
+    html[data-theme="dark"] .cat-card:nth-child(4) { --cat-bg: #213c49; }
+
+    html[data-theme="dark"] .cat-card::before {
+      background: rgba(255,255,255,.045);
+    }
+
+    html[data-theme="dark"] .meme-shell {
+      background:
+        linear-gradient(rgba(29,24,38,.9), rgba(29,24,38,.9)),
+        repeating-linear-gradient(0deg, transparent 0 31px, rgba(128, 154, 199, .12) 32px 33px);
+    }
+
+    html[data-theme="dark"] .polaroid {
+      border-color: rgba(238, 224, 250, .09);
+      background: #282131;
+      box-shadow: 0 16px 38px rgba(3, 2, 8, .36);
+    }
+
+    html[data-theme="dark"] .mood-card {
+      background:
+        radial-gradient(circle at 90% 8%, rgba(255,255,255,.07) 0 70px, transparent 72px),
+        linear-gradient(145deg, #302944, #1f3946);
+    }
+
+    html[data-theme="dark"] .mood-result {
+      border-color: rgba(255,255,255,.1);
+      background: rgba(255,255,255,.055);
+    }
+
+    html[data-theme="dark"] .mood-emoji {
+      background: #241d2d;
+    }
+
+    html[data-theme="dark"] .mood-label,
+    html[data-theme="dark"] .status-top span:last-child,
+    html[data-theme="dark"] .song-kicker,
+    html[data-theme="dark"] .replace-hint,
+    html[data-theme="dark"] .edit-hint {
+      color: #b9a3ca;
+    }
+
+    html[data-theme="dark"] .status-card {
+      background: linear-gradient(155deg, #332d25, #241f2b 60%, #422536);
+    }
+
+    html[data-theme="dark"] .emergency {
+      background:
+        radial-gradient(circle at 20% 10%, rgba(255,255,255,.07) 0 60px, transparent 62px),
+        linear-gradient(135deg, #4b2837, #443923 50%, #223847);
+    }
+
+    html[data-theme="dark"] .stop-btn {
+      color: #f4eaf7;
+      background: #34283c;
+    }
+
+    html[data-theme="dark"] .memories {
+      background: rgba(33, 27, 42, .76);
+    }
+
+    html[data-theme="dark"] .sticky-note {
+      --note: #49402c;
+      color: #f5eef9;
+      box-shadow: 0 17px 34px rgba(3, 2, 7, .34);
+    }
+
+    html[data-theme="dark"] .sticky-note:nth-child(2) { --note: #4b2d3c; }
+    html[data-theme="dark"] .sticky-note:nth-child(3) { --note: #372f50; }
+    html[data-theme="dark"] .sticky-note:nth-child(4) { --note: #284351; }
+    html[data-theme="dark"] .sticky-note:nth-child(5) { --note: #38452f; }
+    html[data-theme="dark"] .sticky-note:nth-child(6) { --note: #503526; }
+    html[data-theme="dark"] .sticky-note:nth-child(7) { --note: #452f50; }
+
+    html[data-theme="dark"] .sticky-note::before {
+      background: rgba(255,255,255,.13);
+    }
+
+    html[data-theme="dark"] .message-controls {
+      background: linear-gradient(145deg, #46293a, #312944);
+    }
+
+    html[data-theme="dark"] .message-display {
+      background: linear-gradient(155deg, #29232f, #20343e);
+    }
+
+    html[data-theme="dark"] .game-arena {
+      border-color: rgba(255,255,255,.11);
+      background:
+        radial-gradient(circle at 20% 30%, rgba(255,255,255,.1) 0 7px, transparent 8px),
+        radial-gradient(circle at 72% 68%, rgba(255,255,255,.08) 0 5px, transparent 6px),
+        linear-gradient(145deg, #203c48, #302a49 50%, #472a37);
+    }
+
+    html[data-theme="dark"] .game-arena::before {
+      color: rgba(231,219,242,.24);
+    }
+
+    html[data-theme="dark"] .catch-cat {
+      border-color: rgba(255,255,255,.12);
+      background: #342d27;
+    }
+
+    html[data-theme="dark"] .game-win {
+      background: #4a4028;
+    }
+
+    html[data-theme="dark"] .music-card {
+      background: linear-gradient(155deg, #302a49, #292330 55%, #203b47);
+    }
+
+    html[data-theme="dark"] .player {
+      border-color: rgba(255,255,255,.1);
+      background: rgba(255,255,255,.05);
+    }
+
+    html[data-theme="dark"] .album-art {
+      border-color: rgba(255,255,255,.13);
+    }
+
+    html[data-theme="dark"] .toast,
+    html[data-theme="dark"] .secret-card {
+      border-color: rgba(255,255,255,.12);
+      background: linear-gradient(145deg, #2d2537, #231d2d);
+      color: #f7f0fb;
+    }
+
+    html[data-theme="dark"] .secret-cat-modal {
+      background: rgba(7, 5, 12, .56);
+    }
+
+    html[data-theme="dark"] .chaos-cat {
+      border-color: rgba(255,255,255,.13);
+      background: var(--chaos-bg, #403627);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .7s ease, transform .7s cubic-bezier(.2,.8,.2,1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes loader-hop {
+      0%, 100% { transform: translateY(0) rotate(-4deg); }
+      50% { transform: translateY(-12px) rotate(4deg); }
+    }
+
+    @keyframes drift {
+      0%, 100% { transform: translate(0, 0) rotate(-6deg); }
+      50% { transform: translate(8px, -18px) rotate(7deg); }
+    }
+
+    @keyframes orbit-spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes hero-float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-14px); }
+    }
+
+    @keyframes boop {
+      0% { transform: scale(1); }
+      35% { transform: scale(.91) rotate(-4deg); }
+      68% { transform: scale(1.08) rotate(3deg); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes message-pop {
+      0% { transform: scale(.88) rotate(-1deg); opacity: .25; }
+      70% { transform: scale(1.035) rotate(.5deg); }
+      100% { transform: scale(1) rotate(0); opacity: 1; }
+    }
+
+    @keyframes mood-reveal {
+      0% { transform: scale(.55) rotate(-25deg); opacity: .2; }
+      70% { transform: scale(1.17) rotate(7deg); }
+      100% { transform: scale(1) rotate(0); opacity: 1; }
+    }
+
+    @keyframes mood-copy-in {
+      0% { transform: translateY(10px); opacity: .18; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes rainbow-meter {
+      to { background-position: 200% 0; }
+    }
+
+    @keyframes twinkle {
+      0%, 100% { transform: scale(.7) rotate(0); opacity: .35; }
+      50% { transform: scale(1.15) rotate(20deg); opacity: 1; }
+    }
+
+    @keyframes caught {
+      0% { transform: translate(-50%, -50%) scale(1); }
+      50% { transform: translate(-50%, -50%) scale(.7) rotate(15deg); }
+      100% { transform: translate(-50%, -50%) scale(1); }
+    }
+
+    @keyframes vinyl-spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes sleepy-breathe {
+      0%, 100% { transform: scale(1) rotate(-3deg); }
+      50% { transform: scale(1.06, .96) rotate(2deg); }
+    }
+
+    @keyframes toast-in {
+      from { opacity: 0; transform: translateY(18px) scale(.94); }
+    }
+
+    @keyframes toast-out {
+      to { opacity: 0; transform: translateX(25px) scale(.96); }
+    }
+
+    @keyframes particle-pop {
+      0% { opacity: 0; transform: translate(-50%, -50%) scale(.35) rotate(0); }
+      24% { opacity: 1; }
+      100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(1.25) rotate(var(--rot)); }
+    }
+
+    @keyframes chaos-arrive {
+      from { opacity: 0; transform: scale(.2) rotate(-30deg); }
+      to { opacity: 1; transform: scale(1) rotate(var(--cat-rot)); }
+    }
+
+    @keyframes chaos-bob {
+      0%, 100% { transform: translateY(0) rotate(var(--cat-rot)); }
+      50% { transform: translateY(-13px) rotate(calc(var(--cat-rot) + 7deg)); }
+    }
+
+    @keyframes paw-rain {
+      to { transform: translate(var(--wind), 115vh) rotate(520deg); opacity: .1; }
+    }
+
+    @keyframes maximum-chaos {
+      from { transform: translate(-8px, -12px) rotate(-16deg) scale(.9); }
+      to { transform: translate(10px, 12px) rotate(16deg) scale(1.12); }
+    }
+
+    @keyframes meow-float {
+      0% { opacity: 0; transform: translateY(20px) scale(.6) rotate(-8deg); }
+      20% { opacity: 1; }
+      100% { opacity: 0; transform: translateY(-150px) scale(1.25) rotate(13deg); }
+    }
+
+    @media (max-width: 980px) {
+      .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .hero-copy {
+        margin-inline: auto;
+      }
+
+      .hero-actions {
+        justify-content: center;
+      }
+
+      .hero-facts {
+        max-width: 620px;
+        margin-inline: auto;
+      }
+
+      .cat-stage {
+        min-height: 430px;
+      }
+
+      .about-grid,
+      .message-machine,
+      .lower-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cat-grid,
+      .notes-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .meme-gallery {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .kazakhstan-card {
+        min-height: 330px;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .site-nav {
+        top: 10px;
+        left: 12px;
+        right: 12px;
+        width: auto;
+        border-radius: 18px;
+        transform: none;
+      }
+
+      .nav-brand strong {
+        display: none;
+      }
+
+      .nav-links a {
+        padding: 8px 9px;
+        font-size: .8rem;
+      }
+
+      main {
+        width: min(100% - 22px, 1160px);
+        padding-top: 86px;
+      }
+
+      section {
+        margin: 55px 0;
+      }
+
+      .hero {
+        min-height: auto;
+        padding: 40px 18px 24px;
+        border-radius: 28px;
+      }
+
+      h1 {
+        font-size: clamp(2.7rem, 15vw, 4.5rem);
+      }
+
+      .hero-copy {
+        font-size: 1rem;
+      }
+
+      .cat-stage {
+        min-height: 340px;
+      }
+
+      .cat-speech {
+        right: 0;
+      }
+
+      .section-heading {
+        display: block;
+        padding-bottom: 16px;
+      }
+
+      .section-heading p {
+        margin-top: 10px;
+      }
+
+      .profile-list,
+      .playground-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .generator-bar {
+        grid-template-columns: 1fr;
+      }
+
+      .mood-result {
+        grid-template-columns: 72px 1fr;
+      }
+
+      .mood-emoji {
+        width: 68px;
+        height: 68px;
+        border-radius: 22px;
+        font-size: 39px;
+      }
+
+      .album-row {
+        grid-template-columns: 105px 1fr;
+      }
+
+      .game-arena {
+        height: 300px;
+      }
+
+      .d1,
+      .d2,
+      .d3,
+      .d4,
+      .d5 {
+        opacity: .38;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .nav-links a:nth-child(2),
+      .nav-links a:nth-child(4) {
+        display: none;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .hero-facts {
+        gap: 6px;
+        margin-top: 26px;
+        padding-top: 18px;
+      }
+
+      .hero-fact {
+        padding: 9px 5px;
+      }
+
+      .hero-fact strong {
+        font-size: 1rem;
+      }
+
+      .hero-fact span {
+        font-size: .62rem;
+        letter-spacing: .02em;
+      }
+
+      .cat-grid,
+      .meme-gallery,
+      .notes-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cat-card {
+        min-height: 290px;
+      }
+
+      .meme-picture {
+        height: 250px;
+      }
+
+      .profile-top {
+        align-items: flex-start;
+      }
+
+      .emergency-controls {
+        display: grid;
+      }
+
+      .album-row {
+        grid-template-columns: 1fr;
+      }
+
+      .album-art {
+        width: min(220px, 100%);
+        margin: 0 auto;
+      }
+
+      .song-info {
+        text-align: center;
+      }
+
+      .player-controls {
+        justify-content: center;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to Nuray's corner</a>
+  <div class="scroll-progress" aria-hidden="true"><span id="scrollProgress"></span></div>
+
+  <div class="loading-screen" id="loadingScreen" aria-live="polite">
+    <div class="loader-card">
+      <div class="loader-cat" aria-hidden="true">🐈</div>
+      <h2>Preparing Nuray's corner...</h2>
+      <p class="loader-status" id="loaderStatus">Waking up the cats...</p>
+      <div class="loader-track" aria-hidden="true"><div class="loader-fill" id="loaderFill"></div></div>
+    </div>
+  </div>
+
+  <nav class="site-nav" aria-label="Little corner navigation">
+    <a class="nav-brand" href="#top"><span aria-hidden="true">🐾</span><strong>Nuray's corner</strong></a>
+    <div class="nav-links">
+      <a href="#about" data-nav="about">About</a>
+      <a href="#cats" data-nav="cats">Cats</a>
+      <a href="#memes" data-nav="memes">Memes</a>
+      <a href="#play" data-nav="play">Play</a>
+      <a href="#memories" data-nav="memories">Notes</a>
+    </div>
+    <div class="nav-actions" aria-label="Display and sound controls">
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode" aria-pressed="false" title="Dark mode">🌙</button>
+      <button class="sound-toggle" id="soundToggle" type="button" aria-label="Turn tiny sounds on" aria-pressed="false" title="Tiny sounds">🔇</button>
+    </div>
+  </nav>
+
+  <span class="floating-decor d1" aria-hidden="true">🐾</span>
+  <span class="floating-decor d2" aria-hidden="true">☁️</span>
+  <span class="floating-decor d3" aria-hidden="true">♡</span>
+  <span class="floating-decor d4" aria-hidden="true">⭐</span>
+  <span class="floating-decor d5" aria-hidden="true">ฅ^•ﻌ•^ฅ</span>
+
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="hero-content">
+        <p class="eyebrow">✦ tiny corner · big cat energy ✦</p>
+        <h1>Welcome to <span class="nuray-name" id="nurayName" role="button" tabindex="0" aria-label="Nuray. There may be a secret here.">Nuray's</span> Little Internet Corner <span aria-hidden="true">🐾</span></h1>
+        <p class="hero-copy">Certified cat enjoyer, professional meme collector, and probably judging this website right now.</p>
+        <div class="hero-actions">
+          <a class="btn" href="#cats">Enter the Cat Department <span aria-hidden="true">→</span></a>
+          <button class="btn secondary" id="quickMessage" type="button">Receive tiny wisdom ✨</button>
+        </div>
+        <div class="hero-facts" aria-label="Corner highlights">
+          <div class="hero-fact"><strong>08</strong><span>tiny surprises</span></div>
+          <div class="hero-fact"><strong>100%</strong><span>cat approved</span></div>
+          <div class="hero-fact"><strong>∞</strong><span>meme energy</span></div>
+        </div>
+      </div>
+
+      <div class="cat-stage" aria-label="Interactive mascot cat">
+        <div class="cat-orbit" aria-hidden="true">
+          <span>💗</span><span>🐾</span><span>✦</span>
+        </div>
+        <div class="hero-cat-wrap" id="heroCat" role="button" tabindex="0" aria-label="Boop the animated cat">
+          <img class="hero-cat" src="https://nurays-little-internet-corner.therapist10t.chatgpt.site/nuray-cat-v2.webp" alt="A simple hand-drawn cream and warm gray cat wearing a blue neckerchief">
+          <span class="cat-speech" id="catSpeech">Boop responsibly, please.</span>
+        </div>
+        <span class="tiny-label" aria-hidden="true">click for tiny chaos</span>
+      </div>
+    </section>
+
+    <section id="about" class="reveal">
+      <div class="section-heading">
+        <div>
+          <span class="section-kicker">the official file</span>
+          <h2>Meet Nuray 🌷</h2>
+        </div>
+        <p>A very serious profile compiled by the International Council of Cats.</p>
+      </div>
+
+      <div class="about-grid">
+        <article class="card profile-card">
+          <div class="profile-top">
+            <div class="profile-avatar"><img src="https://nurays-little-internet-corner.therapist10t.chatgpt.site/nuray-cat-v2.webp" alt=""></div>
+            <div>
+              <h3>Subject: Nuray</h3>
+              <p>Classification: mysteriously iconic</p>
+            </div>
+          </div>
+
+          <dl class="profile-list">
+            <div class="profile-item">
+              <span class="profile-icon" aria-hidden="true">🌷</span>
+              <div><dt>Name</dt><dd>Nuray</dd></div>
+            </div>
+            <div class="profile-item">
+              <span class="profile-icon" aria-hidden="true">📍</span>
+              <div><dt>From</dt><dd>Kazakhstan <img class="inline-flag" src="https://nurays-little-internet-corner.therapist10t.chatgpt.site/kazakhstan-flag.svg" alt=""></dd></div>
+            </div>
+            <div class="profile-item">
+              <span class="profile-icon" aria-hidden="true">✨</span>
+              <div><dt>Personality</dt><dd contenteditable="true" spellcheck="false">add later...</dd></div>
+            </div>
+            <div class="profile-item">
+              <span class="profile-icon" aria-hidden="true">🎀</span>
+              <div><dt>Favorite things</dt><dd contenteditable="true" spellcheck="false">add later...</dd></div>
+            </div>
+            <div class="profile-item">
+              <span class="profile-icon" aria-hidden="true">🍜</span>
+              <div><dt>Favorite food</dt><dd contenteditable="true" spellcheck="false">add later...</dd></div>
+            </div>
+            <div class="profile-item">
+              <span class="profile-icon" aria-hidden="true">🎧</span>
+              <div><dt>Favorite music</dt><dd contenteditable="true" spellcheck="false">add later...</dd></div>
+            </div>
+            <div class="profile-item">
+              <span class="profile-icon" aria-hidden="true">😴</span>
+              <div><dt>Current mood</dt><dd>probably sleepy</dd></div>
+            </div>
+            <div class="profile-item">
+              <span class="profile-icon" aria-hidden="true">⚡</span>
+              <div><dt>Special ability</dt><dd>Sending memes at suspiciously perfect moments</dd></div>
+            </div>
+          </dl>
+          <p class="edit-hint">Tiny secret: the “add later” fields and sticky notes can be edited right on the page.</p>
+        </article>
+
+        <button class="card kazakhstan-card" id="kazakhstanFlag" type="button" aria-label="Open the Kazakhstan cat Easter egg">
+          <span class="flag-frame">
+            <img src="https://nurays-little-internet-corner.therapist10t.chatgpt.site/kazakhstan-flag.svg" alt="The national flag of Kazakhstan">
+          </span>
+          <span>
+            <h3>A little piece of Kazakhstan</h3>
+            <p>Sky blue, a golden sun, a soaring eagle, and a traditional ornamental band.</p>
+          </span>
+          <span class="tap-clue">tap the flag for a surprise 👀</span>
+        </button>
+      </div>
+    </section>
+
+    <section id="cats" class="reveal">
+      <div class="section-heading">
+        <div>
+          <span class="section-kicker">currently overstaffed</span>
+          <h2>Nuray's Cat Department 🐈</h2>
+        </div>
+        <p>Tap a highly qualified employee to review their professional opinion.</p>
+      </div>
+
+      <div class="cat-grid">
+        <article class="cat-card" tabindex="0" data-normal="😴" data-active="🥱" data-line="Five more minutes. Then five more.">
+          <span class="speech-bubble">Five more minutes. Then five more.</span>
+          <div class="cat-sticker" aria-hidden="true">😴</div>
+          <h3>Sleepy Cat</h3>
+          <p>Productivity postponed until further notice.</p>
+        </article>
+        <article class="cat-card" tabindex="0" data-normal="😼" data-active="🤨" data-line="That message has been reviewed.">
+          <span class="speech-bubble">That message has been reviewed.</span>
+          <div class="cat-sticker" aria-hidden="true">😼</div>
+          <h3>Judgmental Cat</h3>
+          <p>When someone says something questionable in the group chat.</p>
+        </article>
+        <article class="cat-card" tabindex="0" data-normal="😾" data-active="💢" data-line="This inconvenience is unacceptable.">
+          <span class="speech-bubble">This inconvenience is unacceptable.</span>
+          <div class="cat-sticker" aria-hidden="true">😾</div>
+          <h3>Tiny Angry Cat</h3>
+          <p>Nuray when something mildly inconvenient happens.</p>
+        </article>
+        <article class="cat-card" tabindex="0" data-normal="🙀" data-active="❓" data-line="Context has left the chat.">
+          <span class="speech-bubble">Context has left the chat.</span>
+          <div class="cat-sticker" aria-hidden="true">🙀</div>
+          <h3>Confused Cat</h3>
+          <p>Me trying to understand what Nuray just sent.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="memes" class="card meme-shell reveal">
+      <div class="section-heading">
+        <div>
+          <span class="section-kicker">archival evidence</span>
+          <h2>Important Historical Documents</h2>
+        </div>
+        <p>Extremely important records. Historians will study these one day, probably.</p>
+      </div>
+
+      <div class="meme-gallery" id="memeGallery">
+        <figure class="polaroid">
+          <span class="tape"></span>
+          <div class="meme-picture" style="--pic-a:#ffdce9;--pic-b:#e9e0ff">
+            <div class="meme-sprite" style="--x:0%;--y:0%" role="img" aria-label="A sleepy cat tucked under a blanket"></div>
+            <span class="meme-badge">🌙</span>
+          </div>
+          <figcaption>Nuray after saying “I'm going to sleep” and still being online 2 hours later.</figcaption>
+        </figure>
+        <figure class="polaroid">
+          <span class="tape"></span>
+          <div class="meme-picture" style="--pic-a:#dff5ff;--pic-b:#fff1cc">
+            <div class="meme-sprite" style="--x:50%;--y:0%" role="img" aria-label="A confused cat surrounded by question marks"></div>
+            <span class="meme-badge">❓</span>
+          </div>
+          <figcaption>Me trying to understand the context of the meme she just sent.</figcaption>
+        </figure>
+        <figure class="polaroid">
+          <span class="tape"></span>
+          <div class="meme-picture" style="--pic-a:#f2e7ff;--pic-b:#ffdfe7">
+            <div class="meme-sprite" style="--x:100%;--y:0%" role="img" aria-label="An annoyed cat next to a weak Wi-Fi router"></div>
+            <span class="meme-badge">📶</span>
+          </div>
+          <figcaption>Nuray when the Wi-Fi becomes slightly slower.</figcaption>
+        </figure>
+        <figure class="polaroid">
+          <span class="tape"></span>
+          <div class="meme-picture" style="--pic-a:#fff1c5;--pic-b:#ffdce9">
+            <div class="meme-sprite" style="--x:0%;--y:100%" role="img" aria-label="A protective hungry cat guarding a snack bowl"></div>
+            <span class="meme-badge">🍜</span>
+          </div>
+          <figcaption>POV: someone touched her food.</figcaption>
+        </figure>
+        <figure class="polaroid">
+          <span class="tape"></span>
+          <div class="meme-picture" style="--pic-a:#dcedff;--pic-b:#eae0ff">
+            <div class="meme-sprite" style="--x:50%;--y:100%" role="img" aria-label="A chaotic wide-eyed cat awake at night"></div>
+            <span class="meme-badge">2AM</span>
+          </div>
+          <figcaption>Average 2 AM conversation.</figcaption>
+        </figure>
+        <figure class="polaroid">
+          <span class="tape"></span>
+          <div class="meme-picture" style="--pic-a:#ffe0ed;--pic-b:#dcf5ff">
+            <div class="meme-sprite" style="--x:100%;--y:100%" role="img" aria-label="A laughing cat with happy tears"></div>
+            <span class="meme-badge">😂</span>
+          </div>
+          <figcaption>When the joke makes absolutely no sense but somehow it's still funny.</figcaption>
+        </figure>
+      </div>
+
+      <div class="generator-bar">
+        <button class="btn" id="memeButton" type="button">Generate Random Nuray Meme</button>
+        <p class="generated-caption" id="memeCaption" aria-live="polite">The archive is waiting for new evidence...</p>
+      </div>
+    </section>
+
+    <section id="play" class="playground-grid reveal">
+      <article class="card interactive-card mood-card">
+        <h2>What Cat Are You Today?</h2>
+        <p>Advanced science, reviewed by at least three sleepy kittens.</p>
+        <div class="mood-result" id="moodResult">
+          <div class="mood-emoji" id="moodEmoji" aria-hidden="true">🐾</div>
+          <div class="mood-copy">
+            <p class="mood-label">today's official diagnosis</p>
+            <p class="mood-name" id="moodName" aria-live="polite">Tap to consult the cat oracle</p>
+          </div>
+        </div>
+        <button class="btn" id="moodButton" type="button">Reveal My Cat Mood 🐾</button>
+      </article>
+
+      <article class="card interactive-card status-card" id="statusCard">
+        <h2>Nuray Status</h2>
+        <p>Live readings from a completely legitimate control panel.</p>
+        <div class="status-row">
+          <div class="status-top"><span>Energy</span><span>50%</span></div>
+          <div class="meter" role="progressbar" aria-label="Energy" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"><div class="meter-fill" style="--value:50%;--bar-a:#ff91b8;--bar-b:#c18de7"></div></div>
+        </div>
+        <div class="status-row">
+          <div class="status-top"><span>Sleepiness</span><span>90%</span></div>
+          <div class="meter" role="progressbar" aria-label="Sleepiness" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"><div class="meter-fill" style="--value:90%;--bar-a:#b69af1;--bar-b:#75cbe9"></div></div>
+        </div>
+        <div class="status-row">
+          <div class="status-top"><span>Meme Power</span><span>100%</span></div>
+          <div class="meter" role="progressbar" aria-label="Meme power" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"><div class="meter-fill" style="--value:100%;--bar-a:#ffb172;--bar-b:#ff7fab"></div></div>
+        </div>
+        <div class="status-row">
+          <div class="status-top"><span>Patience</span><span>30%</span></div>
+          <div class="meter" role="progressbar" aria-label="Patience" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"><div class="meter-fill" style="--value:30%;--bar-a:#88d5ea;--bar-b:#a996ed"></div></div>
+        </div>
+        <div class="status-row">
+          <div class="status-top"><span>Cat Appreciation</span><span>999%</span></div>
+          <div class="meter legendary" role="progressbar" aria-label="Cat appreciation, legendary level" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"><div class="meter-fill"></div></div>
+        </div>
+      </article>
+    </section>
+
+    <section class="card emergency reveal">
+      <span class="section-kicker">use only when necessary (or bored)</span>
+      <h2>Emergency Cat Button 🚨🐈</h2>
+      <p>Warning: this deploys an unreasonable number of highly trained cats directly into your browser.</p>
+      <div class="emergency-controls">
+        <button class="btn alarm" id="emergencyButton" type="button">DEPLOY THE CATS</button>
+        <button class="btn stop-btn" id="stopCats" type="button">STOP THE CATS</button>
+      </div>
+      <p class="cat-counter" id="catCounter" aria-live="polite">Cats deployed: 0</p>
+    </section>
+
+    <section id="memories" class="card memories reveal">
+      <div class="section-heading">
+        <div>
+          <span class="section-kicker">the tiny details</span>
+          <h2>Tiny Things That Make Nuray, Nuray</h2>
+        </div>
+        <p>Click any note to replace the placeholder with a real memory or inside joke.</p>
+      </div>
+      <div class="notes-grid">
+        <article class="sticky-note">
+          <span class="note-icon">💬</span>
+          <h3>Funny things she says</h3>
+          <p contenteditable="true" spellcheck="false">Write a classic Nuray quote here...</p>
+        </article>
+        <article class="sticky-note">
+          <span class="note-icon">🤝</span>
+          <h3>Inside jokes</h3>
+          <p contenteditable="true" spellcheck="false">The joke nobody else would understand...</p>
+        </article>
+        <article class="sticky-note">
+          <span class="note-icon">📸</span>
+          <h3>Random memories</h3>
+          <p contenteditable="true" spellcheck="false">A tiny moment worth keeping...</p>
+        </article>
+        <article class="sticky-note">
+          <span class="note-icon">😂</span>
+          <h3>Favorite memes</h3>
+          <p contenteditable="true" spellcheck="false">Add the most historically significant meme...</p>
+        </article>
+        <article class="sticky-note">
+          <span class="note-icon">🌙</span>
+          <h3>Weird conversations</h3>
+          <p contenteditable="true" spellcheck="false">Probably happened after midnight...</p>
+        </article>
+        <article class="sticky-note">
+          <span class="note-icon">🎀</span>
+          <h3>Things she likes</h3>
+          <p contenteditable="true" spellcheck="false">Cats are already on the list...</p>
+        </article>
+        <article class="sticky-note">
+          <span class="note-icon">🌀</span>
+          <h3>Funny habits</h3>
+          <p contenteditable="true" spellcheck="false">One suspiciously specific habit goes here...</p>
+        </article>
+        <article class="sticky-note">
+          <span class="note-icon">✨</span>
+          <h3>Future evidence</h3>
+          <p contenteditable="true" spellcheck="false">Reserved for the next chaotic moment...</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="message-machine reveal">
+      <article class="card message-controls">
+        <span class="section-kicker">certified advice dispenser</span>
+        <h2>Random Message Machine</h2>
+        <p>Press the button. Accept your extremely official daily message.</p>
+        <button class="btn" id="messageButton" type="button">Give Nuray a Random Message</button>
+      </article>
+      <article class="card message-display">
+        <p class="message-output" id="messageOutput" aria-live="polite">The council of cats is preparing a statement...</p>
+      </article>
+    </section>
+
+    <section class="lower-grid reveal">
+      <article class="card game-card">
+        <span class="section-kicker">tiny browser game</span>
+        <h2>Catch the Cat</h2>
+        <p class="game-subtitle">Catch the suspicious employee before it changes desks.</p>
+        <div class="game-arena" id="gameArena">
+          <button class="catch-cat" id="catchCat" type="button" aria-label="Catch the moving cat">🐈</button>
+        </div>
+        <div class="scorebar">
+          <span class="score-pill">Cats caught: <strong id="gameScore">0</strong></span>
+          <button class="btn secondary" id="resetGame" type="button">Reset score</button>
+        </div>
+        <p class="game-win" id="gameWin">Congratulations. You are officially qualified to work at the Cat Department. 🎓🐾</p>
+      </article>
+
+      <article class="card music-card">
+        <span class="section-kicker">now pretending to play</span>
+        <h2>Pocket Music Player</h2>
+        <p>A tiny soundtrack for scrolling through important cat research.</p>
+        <div class="player" id="player">
+          <div class="album-row">
+            <div class="album-art" aria-label="Album art placeholder">
+              <span class="vinyl" aria-hidden="true"></span>
+            </div>
+            <div class="song-info">
+              <p class="song-kicker">now playing</p>
+              <p class="song-title">Pocket Daydream</p>
+              <p class="song-artist">The Sleepy Cat Orchestra</p>
+            </div>
+          </div>
+          <div class="progress" id="musicProgress" role="slider" tabindex="0" aria-label="Song progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+            <div class="progress-fill" id="musicProgressFill"></div>
+          </div>
+          <div class="player-controls">
+            <button class="play-button" id="playButton" type="button" aria-label="Play demo music">▶</button>
+            <span class="time-label" id="timeLabel">0:00 / 0:30</span>
+          </div>
+          <audio id="customAudio" preload="metadata"></audio>
+          <p class="replace-hint">Music placeholder: add an audio URL to <strong>MUSIC_SRC</strong> in the editable script.</p>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    <div class="sleepy-cat" aria-hidden="true">😴🐈</div>
+    <p>Made with questionable amounts of code, memes, and cats 🐾</p>
+    <small>Officially approved by the International Council of Very Serious Cats.</small>
+  </footer>
+
+  <div class="toast-region" id="toastRegion" aria-live="polite" aria-atomic="false"></div>
+
+  <div class="secret-cat-modal" id="secretModal" role="dialog" aria-modal="true" aria-labelledby="secretTitle">
+    <div class="secret-card">
+      <div class="big-cat" id="secretCat" aria-hidden="true">🐱</div>
+      <h2 id="secretTitle">Secret cat found!</h2>
+      <p id="secretMessage">You have excellent clicking skills.</p>
+      <button class="btn" id="closeSecret" type="button">Return to cat research</button>
+    </div>
+  </div>
+
+  <script>
+    /*
+      QUICK CUSTOMIZATION
+      - Replace "https://nurays-little-internet-corner.therapist10t.chatgpt.site/nuray-cat-v2.webp" and "https://nurays-little-internet-corner.therapist10t.chatgpt.site/nuray-meme-sheet-v2.webp" with any cat or meme images.
+      - Edit the arrays below to add moods, messages, meme captions, and cat dialogue.
+      - Set MUSIC_SRC to a local file such as "nuray-song.mp3" or a direct audio URL.
+    */
+    const MUSIC_SRC = "";
+
+    const memeCaptions = [
+      "Nuray after saying “I'm going to sleep” and still being online 2 hours later.",
+      "Me opening a meme from Nuray with absolutely zero context.",
+      "Nuray when the Wi-Fi takes 0.4 seconds longer than expected.",
+      "POV: someone looked at her snack for too long.",
+      "Average 2 AM conversation: no plot, excellent character development.",
+      "When the joke makes no sense, but the laugh is already unstoppable.",
+      "Nuray entering the chat with evidence nobody requested.",
+      "The face of someone who definitely did not press snooze six times.",
+      "When the group chat is quiet, so Nuray deploys one perfectly timed meme.",
+      "A normal conversation, approximately three seconds before chaos."
+    ];
+
+    const randomMessages = [
+      "Drink some water 🫵",
+      "Go pet a cat immediately.",
+      "You have been selected for mandatory snack time.",
+      "Stop scrolling and blink.",
+      "A cat somewhere believes in you.",
+      "Your daily meme quota has not been reached.",
+      "Congratulations. You survived another random website interaction.",
+      "The council of cats approves of you.",
+      "Official reminder: being sleepy is not a personality… probably.",
+      "Today's mission: find one tiny thing that makes you laugh."
+    ];
+
+    const catMoods = [
+      { name: "Sleepy Potato Cat", emoji: "🥔😴" },
+      { name: "Chaotic Orange Cat", emoji: "🍊🐈" },
+      { name: "Suspicious Cat", emoji: "🤨" },
+      { name: "Tiny Angry Cat", emoji: "😾" },
+      { name: "Princess Cat", emoji: "👑🐱" },
+      { name: "Confused Kitten", emoji: "🙀" },
+      { name: "Professional Napper", emoji: "💤" },
+      { name: "3 AM Zoomies Cat", emoji: "⚡🐈" },
+      { name: "Judgmental Cat", emoji: "😼" },
+      { name: "Hungry Goblin Cat", emoji: "🍜🐱" }
+    ];
+
+    const heroLines = [
+      "Boop accepted. Processing...",
+      "I have reviewed your vibe.",
+      "One paw particle delivery!",
+      "Please submit snacks in triplicate.",
+      "Nuray's corner is under cat supervision."
+    ];
+
+    const chaosMessages = [
+      "A cat has entered the documents.",
+      "The Cat Department denies responsibility.",
+      "Someone said pspspsps.",
+      "Emergency nap protocol activated.",
+      "This is now a cat-managed website.",
+      "Please remain calm and offer snacks."
+    ];
+
+    const q = function(selector, scope) {
+      return (scope || document).querySelector(selector);
+    };
+
+    const qa = function(selector, scope) {
+      return Array.from((scope || document).querySelectorAll(selector));
+    };
+
+    const randomItem = function(list) {
+      return list[Math.floor(Math.random() * list.length)];
+    };
+
+    const themeToggle = q("#themeToggle");
+    const themeColor = q("#themeColor");
+
+    function applyTheme(theme, remember) {
+      const isDark = theme === "dark";
+      document.documentElement.dataset.theme = isDark ? "dark" : "light";
+      themeToggle.textContent = isDark ? "☀️" : "🌙";
+      themeToggle.setAttribute("aria-pressed", String(isDark));
+      themeToggle.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
+      themeToggle.title = isDark ? "Light mode" : "Dark mode";
+      themeColor.setAttribute("content", isDark ? "#15111d" : "#fff6f8");
+      if (remember) {
+        try {
+          window.localStorage.setItem("nuray-corner-theme", isDark ? "dark" : "light");
+        } catch (error) {
+          /* Theme still works when storage is unavailable. */
+        }
+      }
+    }
+
+    applyTheme(document.documentElement.dataset.theme || "light", false);
+
+    themeToggle.addEventListener("click", function() {
+      const nextTheme = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+      applyTheme(nextTheme, true);
+      showToast(nextTheme === "dark" ? "Elegant night mode activated 🌙" : "Soft daylight mode activated ☀️");
+    });
+
+    const navigationLinks = qa("[data-nav]");
+    const navigationTargets = navigationLinks
+      .map(function(link) { return q("#" + link.dataset.nav); })
+      .filter(Boolean);
+    let scrollTicking = false;
+
+    function updateScrollInterface() {
+      const root = document.documentElement;
+      const scrollable = Math.max(1, root.scrollHeight - window.innerHeight);
+      q("#scrollProgress").style.width = Math.min(100, (window.scrollY / scrollable) * 100) + "%";
+
+      let currentSection = "";
+      navigationTargets.forEach(function(section) {
+        if (window.scrollY >= section.offsetTop - window.innerHeight * .38) {
+          currentSection = section.id;
+        }
+      });
+      navigationLinks.forEach(function(link) {
+        const active = link.dataset.nav === currentSection;
+        link.classList.toggle("active", active);
+        if (active) link.setAttribute("aria-current", "location");
+        else link.removeAttribute("aria-current");
+      });
+      scrollTicking = false;
+    }
+
+    function requestScrollUpdate() {
+      if (!scrollTicking) {
+        scrollTicking = true;
+        window.requestAnimationFrame(updateScrollInterface);
+      }
+    }
+
+    window.addEventListener("scroll", requestScrollUpdate, { passive: true });
+    window.addEventListener("resize", requestScrollUpdate);
+    updateScrollInterface();
+
+    qa('[contenteditable="true"]').forEach(function(field, index) {
+      const storageKey = "nuray-corner-edit-" + index;
+      try {
+        const savedValue = window.localStorage.getItem(storageKey);
+        if (savedValue) field.textContent = savedValue;
+        field.addEventListener("input", function() {
+          window.localStorage.setItem(storageKey, field.textContent);
+        });
+      } catch (error) {
+        /* The editable notes still work when storage is unavailable. */
+      }
+    });
+
+    let soundEnabled = false;
+    let audioContext = null;
+
+    function playTone(frequency, duration, type, volume) {
+      if (!soundEnabled) return;
+      try {
+        audioContext = audioContext || new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = audioContext.createOscillator();
+        const gain = audioContext.createGain();
+        oscillator.type = type || "sine";
+        oscillator.frequency.value = frequency || 520;
+        gain.gain.setValueAtTime(volume || .035, audioContext.currentTime);
+        gain.gain.exponentialRampToValueAtTime(.0001, audioContext.currentTime + (duration || .12));
+        oscillator.connect(gain);
+        gain.connect(audioContext.destination);
+        oscillator.start();
+        oscillator.stop(audioContext.currentTime + (duration || .12));
+      } catch (error) {
+        soundEnabled = false;
+      }
+    }
+
+    function showToast(message) {
+      const toast = document.createElement("div");
+      toast.className = "toast";
+      toast.textContent = message;
+      q("#toastRegion").appendChild(toast);
+      window.setTimeout(function() { toast.remove(); }, 3800);
+    }
+
+    function particleBurst(x, y, symbols, amount) {
+      const chosen = symbols || ["🐾", "♡", "✦"];
+      const total = amount || 8;
+      for (let index = 0; index < total; index += 1) {
+        const particle = document.createElement("span");
+        const angle = (Math.PI * 2 * index / total) + Math.random() * .5;
+        const distance = 45 + Math.random() * 85;
+        particle.className = "particle";
+        particle.textContent = randomItem(chosen);
+        particle.style.left = x + "px";
+        particle.style.top = y + "px";
+        particle.style.fontSize = (16 + Math.random() * 14) + "px";
+        particle.style.setProperty("--tx", (Math.cos(angle) * distance) + "px");
+        particle.style.setProperty("--ty", (Math.sin(angle) * distance) + "px");
+        particle.style.setProperty("--rot", ((Math.random() * 180) - 90) + "deg");
+        document.body.appendChild(particle);
+        window.setTimeout(function() { particle.remove(); }, 950);
+      }
+    }
+
+    function retrigger(element, className) {
+      element.classList.remove(className);
+      void element.offsetWidth;
+      element.classList.add(className);
+    }
+
+    function openSecret(title, message, cat) {
+      q("#secretTitle").textContent = title;
+      q("#secretMessage").textContent = message;
+      q("#secretCat").textContent = cat || "🐱";
+      q("#secretModal").classList.add("visible");
+      q("#closeSecret").focus();
+      playTone(720, .16, "sine", .04);
+    }
+
+    const loaderSteps = [
+      { text: "Loading cats...", width: 24 },
+      { text: "Loading memes...", width: 49 },
+      { text: "Questioning life choices...", width: 76 },
+      { text: "Counting tiny paws...", width: 91 },
+      { text: "Done 🐈", width: 100 }
+    ];
+
+    window.addEventListener("DOMContentLoaded", function() {
+      let step = 0;
+      const status = q("#loaderStatus");
+      const fill = q("#loaderFill");
+      const runLoader = function() {
+        if (step < loaderSteps.length) {
+          status.textContent = loaderSteps[step].text;
+          fill.style.width = loaderSteps[step].width + "%";
+          step += 1;
+          window.setTimeout(runLoader, step === loaderSteps.length ? 420 : 360);
+        } else {
+          q("#loadingScreen").classList.add("done");
+          document.body.focus();
+        }
+      };
+      window.setTimeout(runLoader, 250);
+    });
+
+    q("#soundToggle").addEventListener("click", function(event) {
+      soundEnabled = !soundEnabled;
+      event.currentTarget.textContent = soundEnabled ? "🔊" : "🔇";
+      event.currentTarget.setAttribute("aria-pressed", String(soundEnabled));
+      event.currentTarget.setAttribute("aria-label", soundEnabled ? "Turn tiny sounds off" : "Turn tiny sounds on");
+      if (soundEnabled) {
+        playTone(620, .13, "sine", .04);
+        window.setTimeout(function() { playTone(830, .16, "sine", .03); }, 90);
+        showToast("Tiny sounds are on 🔊");
+      } else {
+        showToast("Tiny sounds are off 🔇");
+      }
+    });
+
+    const heroCat = q("#heroCat");
+    heroCat.addEventListener("pointermove", function(event) {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      const rect = heroCat.getBoundingClientRect();
+      const x = (event.clientX - rect.left) / rect.width - .5;
+      const y = (event.clientY - rect.top) / rect.height - .5;
+      heroCat.style.transform = "rotateY(" + (x * 9) + "deg) rotateX(" + (y * -7) + "deg) translateY(-6px)";
+    });
+    heroCat.addEventListener("pointerleave", function() {
+      heroCat.style.transform = "";
+    });
+
+    function boopHero(event) {
+      const rect = heroCat.getBoundingClientRect();
+      const clientX = event.clientX || (rect.left + rect.width / 2);
+      const clientY = event.clientY || (rect.top + rect.height / 2);
+      retrigger(heroCat, "boop");
+      q("#catSpeech").textContent = randomItem(heroLines);
+      particleBurst(clientX, clientY, ["🐾", "💗", "✦", "♡"], 11);
+      playTone(660, .13, "sine", .04);
+    }
+
+    heroCat.addEventListener("click", boopHero);
+    heroCat.addEventListener("keydown", function(event) {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        boopHero(event);
+      }
+    });
+
+    q("#quickMessage").addEventListener("click", function(event) {
+      showToast(randomItem(randomMessages));
+      const rect = event.currentTarget.getBoundingClientRect();
+      particleBurst(rect.left + rect.width / 2, rect.top, ["✦", "♡"], 7);
+      playTone(570, .12, "triangle", .03);
+    });
+
+    qa(".cat-card").forEach(function(card) {
+      const activate = function(event) {
+        const sticker = q(".cat-sticker", card);
+        const isActive = card.classList.toggle("active");
+        sticker.textContent = isActive ? card.dataset.active : card.dataset.normal;
+        q(".speech-bubble", card).textContent = card.dataset.line;
+        const rect = card.getBoundingClientRect();
+        particleBurst(event.clientX || rect.left + rect.width / 2, event.clientY || rect.top + 90, ["🐾", "✦"], 6);
+        playTone(isActive ? 500 : 420, .11, "sine", .025);
+      };
+      card.addEventListener("click", activate);
+      card.addEventListener("keydown", function(event) {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          activate(event);
+        }
+      });
+    });
+
+    q("#memeButton").addEventListener("click", function(event) {
+      const output = q("#memeCaption");
+      output.textContent = randomItem(memeCaptions);
+      retrigger(output, "pop");
+      const rect = event.currentTarget.getBoundingClientRect();
+      particleBurst(rect.left + rect.width / 2, rect.top, ["😂", "✦", "🐾"], 8);
+      playTone(610, .12, "triangle", .03);
+    });
+
+    q("#moodButton").addEventListener("click", function(event) {
+      const mood = randomItem(catMoods);
+      q("#moodEmoji").textContent = mood.emoji;
+      q("#moodName").textContent = mood.name;
+      retrigger(q("#moodResult"), "mood-animate");
+      const rect = event.currentTarget.getBoundingClientRect();
+      particleBurst(rect.left + rect.width / 2, rect.top, ["🐾", "⭐", "♡"], 10);
+      playTone(700, .11, "sine", .035);
+      window.setTimeout(function() { playTone(880, .15, "sine", .025); }, 85);
+    });
+
+    q("#messageButton").addEventListener("click", function(event) {
+      const output = q("#messageOutput");
+      output.textContent = randomItem(randomMessages);
+      retrigger(output, "pop");
+      const rect = event.currentTarget.getBoundingClientRect();
+      particleBurst(rect.right, rect.top, ["✦", "💌", "🐾"], 9);
+      playTone(540, .12, "triangle", .03);
+    });
+
+    const revealObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          if (entry.target.id === "statusCard") {
+            entry.target.classList.add("animated");
+          }
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: .12 });
+
+    qa(".reveal").forEach(function(element) {
+      revealObserver.observe(element);
+    });
+    revealObserver.observe(q("#statusCard"));
+
+    let nameClicks = 0;
+    let nameTimer = null;
+    function clickNuray() {
+      nameClicks += 1;
+      window.clearTimeout(nameTimer);
+      nameTimer = window.setTimeout(function() { nameClicks = 0; }, 2600);
+      const rect = q("#nurayName").getBoundingClientRect();
+      particleBurst(rect.left + rect.width / 2, rect.top + rect.height / 2, ["♡", "🐾"], 4);
+      if (nameClicks >= 5) {
+        nameClicks = 0;
+        openSecret("A tiny investigator appears", "Why are you clicking her name so much? 🤨", "🐈‍⬛");
+      }
+    }
+    q("#nurayName").addEventListener("click", clickNuray);
+    q("#nurayName").addEventListener("keydown", function(event) {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        clickNuray();
+      }
+    });
+
+    q("#kazakhstanFlag").addEventListener("click", function(event) {
+      const rect = event.currentTarget.getBoundingClientRect();
+      particleBurst(rect.left + rect.width / 2, rect.top + rect.height / 2, ["☀️", "💙", "✦"], 12);
+      openSecret("Kazakhstan Cat unlocked!", "This tiny official came wearing sky blue and carrying enough sunshine for the whole page.", "🐱💙");
+    });
+
+    q("#closeSecret").addEventListener("click", function() {
+      q("#secretModal").classList.remove("visible");
+    });
+    q("#secretModal").addEventListener("click", function(event) {
+      if (event.target === event.currentTarget) q("#secretModal").classList.remove("visible");
+    });
+    document.addEventListener("keydown", function(event) {
+      if (event.key === "Escape") q("#secretModal").classList.remove("visible");
+    });
+
+    let catElements = [];
+    let chaosIntervals = [];
+    let deployedCats = 0;
+    const chaosFaces = ["🐈", "🐱", "😼", "😸", "🙀", "😺", "🐈‍⬛"];
+    const chaosColors = ["#fff0c2", "#ffdce9", "#e7dcff", "#d9f4ff", "#e9f5d8"];
+
+    function addChaosCat(maximum) {
+      const cat = document.createElement("span");
+      cat.className = "chaos-cat";
+      cat.textContent = randomItem(chaosFaces);
+      cat.style.left = (3 + Math.random() * 90) + "vw";
+      cat.style.top = (8 + Math.random() * 82) + "vh";
+      cat.style.setProperty("--cat-rot", ((Math.random() * 30) - 15) + "deg");
+      cat.style.setProperty("--chaos-bg", randomItem(chaosColors));
+      if (maximum) cat.classList.add("maximum");
+      document.body.appendChild(cat);
+      catElements.push(cat);
+      deployedCats += 1;
+      q("#catCounter").textContent = "Cats deployed: " + deployedCats;
+    }
+
+    function addRainPaw() {
+      const paw = document.createElement("span");
+      paw.className = "rain-paw";
+      paw.textContent = Math.random() > .25 ? "🐾" : "♡";
+      paw.style.left = Math.random() * 100 + "vw";
+      paw.style.setProperty("--fall", (2.3 + Math.random() * 2.2) + "s");
+      paw.style.setProperty("--wind", ((Math.random() * 180) - 90) + "px");
+      document.body.appendChild(paw);
+      catElements.push(paw);
+      window.setTimeout(function() {
+        const position = catElements.indexOf(paw);
+        if (position >= 0) catElements.splice(position, 1);
+        paw.remove();
+      }, 4700);
+    }
+
+    function stopAllCats() {
+      chaosIntervals.forEach(function(timer) { window.clearInterval(timer); });
+      chaosIntervals = [];
+      catElements.forEach(function(element) { element.remove(); });
+      catElements = [];
+      deployedCats = 0;
+      document.body.classList.remove("max-chaos");
+      q("#catCounter").textContent = "Cats deployed: 0";
+      q("#stopCats").classList.remove("visible");
+      q("#emergencyButton").disabled = false;
+      showToast("The cats have returned to headquarters. Mostly.");
+    }
+
+    q("#emergencyButton").addEventListener("click", function() {
+      if (chaosIntervals.length) return;
+      q("#stopCats").classList.add("visible");
+      q("#emergencyButton").disabled = true;
+      for (let index = 0; index < 7; index += 1) {
+        window.setTimeout(function() { addChaosCat(false); }, index * 120);
+      }
+      chaosIntervals.push(window.setInterval(function() {
+        if (deployedCats < 32) addChaosCat(false);
+      }, 430));
+      chaosIntervals.push(window.setInterval(addRainPaw, 150));
+      chaosIntervals.push(window.setInterval(function() {
+        showToast(randomItem(chaosMessages));
+      }, 2400));
+      playTone(390, .18, "square", .025);
+      window.setTimeout(function() { playTone(520, .2, "square", .02); }, 140);
+    });
+    q("#stopCats").addEventListener("click", stopAllCats);
+
+    let typedWord = "";
+    let meowModeTimer = null;
+    function activateMeowMode() {
+      showToast("MEOW MODE ACTIVATED 🐾");
+      window.clearInterval(meowModeTimer);
+      let count = 0;
+      meowModeTimer = window.setInterval(function() {
+        const face = document.createElement("span");
+        face.className = "meow-face";
+        face.textContent = randomItem(chaosFaces);
+        face.style.left = (5 + Math.random() * 90) + "vw";
+        face.style.top = (25 + Math.random() * 65) + "vh";
+        document.body.appendChild(face);
+        window.setTimeout(function() { face.remove(); }, 2800);
+        count += 1;
+        if (count >= 16) window.clearInterval(meowModeTimer);
+      }, 180);
+      playTone(760, .13, "sine", .035);
+    }
+
+    const konami = ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a"];
+    let konamiIndex = 0;
+    document.addEventListener("keydown", function(event) {
+      const target = event.target;
+      if (target && target.getAttribute && target.getAttribute("contenteditable") === "true") return;
+
+      if (event.key.length === 1 && /[a-z]/i.test(event.key)) {
+        typedWord = (typedWord + event.key.toLowerCase()).slice(-4);
+        if (typedWord === "meow") {
+          typedWord = "";
+          activateMeowMode();
+        }
+      }
+
+      const expected = konami[konamiIndex];
+      if (event.key === expected || event.key.toLowerCase() === expected) {
+        konamiIndex += 1;
+        if (konamiIndex === konami.length) {
+          konamiIndex = 0;
+          document.body.classList.add("max-chaos");
+          q("#stopCats").classList.add("visible");
+          for (let index = 0; index < 24; index += 1) {
+            window.setTimeout(function() { addChaosCat(true); }, index * 70);
+          }
+          chaosIntervals.push(window.setInterval(addRainPaw, 90));
+          openSecret("MAXIMUM CAT CHAOS MODE", "The ancient code has been accepted. The cats now control everything.", "🌪️🐈");
+        }
+      } else {
+        konamiIndex = event.key === konami[0] ? 1 : 0;
+      }
+    });
+
+    const gameArena = q("#gameArena");
+    const catchCat = q("#catchCat");
+    let score = 0;
+    let escapeTimer = null;
+
+    function moveGameCat() {
+      const padding = 48;
+      const width = Math.max(0, gameArena.clientWidth - padding * 2);
+      const height = Math.max(0, gameArena.clientHeight - padding * 2);
+      catchCat.style.left = (padding + Math.random() * width) + "px";
+      catchCat.style.top = (padding + Math.random() * height) + "px";
+      window.clearTimeout(escapeTimer);
+      escapeTimer = window.setTimeout(moveGameCat, Math.max(680, 1450 - score * 55));
+    }
+
+    catchCat.addEventListener("click", function(event) {
+      event.stopPropagation();
+      score += 1;
+      q("#gameScore").textContent = score;
+      retrigger(catchCat, "caught");
+      particleBurst(event.clientX, event.clientY, ["🐾", "⭐"], 7);
+      playTone(580 + score * 18, .1, "sine", .03);
+      if (score >= 10) {
+        q("#gameWin").classList.add("visible");
+        showToast("New job unlocked: Cat Department specialist 🎓");
+      }
+      moveGameCat();
+    });
+
+    q("#resetGame").addEventListener("click", function() {
+      score = 0;
+      q("#gameScore").textContent = "0";
+      q("#gameWin").classList.remove("visible");
+      moveGameCat();
+    });
+
+    window.addEventListener("resize", moveGameCat);
+    window.setTimeout(moveGameCat, 1900);
+
+    const customAudio = q("#customAudio");
+    const player = q("#player");
+    const playButton = q("#playButton");
+    const musicProgress = q("#musicProgress");
+    const progressFill = q("#musicProgressFill");
+    const timeLabel = q("#timeLabel");
+    let demoPlaying = false;
+    let demoSeconds = 0;
+    let demoTimer = null;
+
+    if (MUSIC_SRC) customAudio.src = MUSIC_SRC;
+
+    function formatTime(seconds) {
+      const safe = Math.max(0, Math.floor(seconds));
+      return Math.floor(safe / 60) + ":" + String(safe % 60).padStart(2, "0");
+    }
+
+    function updatePlayer(percent, current, duration) {
+      const value = Math.max(0, Math.min(100, percent));
+      progressFill.style.width = value + "%";
+      musicProgress.setAttribute("aria-valuenow", String(Math.round(value)));
+      timeLabel.textContent = formatTime(current) + " / " + formatTime(duration);
+    }
+
+    function stopDemo() {
+      demoPlaying = false;
+      window.clearInterval(demoTimer);
+      playButton.textContent = "▶";
+      playButton.setAttribute("aria-label", "Play demo music");
+      player.classList.remove("playing");
+    }
+
+    function startDemo() {
+      demoPlaying = true;
+      playButton.textContent = "❚❚";
+      playButton.setAttribute("aria-label", "Pause demo music");
+      player.classList.add("playing");
+      demoTimer = window.setInterval(function() {
+        demoSeconds += .1;
+        if (demoSeconds >= 30) demoSeconds = 0;
+        updatePlayer((demoSeconds / 30) * 100, demoSeconds, 30);
+        if (soundEnabled && Math.floor(demoSeconds * 10) % 16 === 0) {
+          playTone(randomItem([392, 440, 494, 523]), .32, "sine", .012);
+        }
+      }, 100);
+    }
+
+    playButton.addEventListener("click", function() {
+      if (MUSIC_SRC) {
+        if (customAudio.paused) {
+          customAudio.play();
+          player.classList.add("playing");
+          playButton.textContent = "❚❚";
+          playButton.setAttribute("aria-label", "Pause music");
+        } else {
+          customAudio.pause();
+          player.classList.remove("playing");
+          playButton.textContent = "▶";
+          playButton.setAttribute("aria-label", "Play music");
+        }
+      } else if (demoPlaying) {
+        stopDemo();
+      } else {
+        startDemo();
+      }
+    });
+
+    customAudio.addEventListener("timeupdate", function() {
+      if (!customAudio.duration) return;
+      updatePlayer((customAudio.currentTime / customAudio.duration) * 100, customAudio.currentTime, customAudio.duration);
+    });
+
+    customAudio.addEventListener("ended", function() {
+      player.classList.remove("playing");
+      playButton.textContent = "▶";
+    });
+
+    function seekMusic(clientX) {
+      const rect = musicProgress.getBoundingClientRect();
+      const fraction = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+      if (MUSIC_SRC && customAudio.duration) {
+        customAudio.currentTime = fraction * customAudio.duration;
+      } else {
+        demoSeconds = fraction * 30;
+        updatePlayer(fraction * 100, demoSeconds, 30);
+      }
+    }
+
+    musicProgress.addEventListener("click", function(event) {
+      seekMusic(event.clientX);
+    });
+
+    musicProgress.addEventListener("keydown", function(event) {
+      if (event.key === "ArrowRight" || event.key === "ArrowLeft") {
+        event.preventDefault();
+        const amount = event.key === "ArrowRight" ? 2 : -2;
+        if (MUSIC_SRC && customAudio.duration) {
+          customAudio.currentTime = Math.max(0, Math.min(customAudio.duration, customAudio.currentTime + amount));
+        } else {
+          demoSeconds = Math.max(0, Math.min(30, demoSeconds + amount));
+          updatePlayer((demoSeconds / 30) * 100, demoSeconds, 30);
+        }
+      }
+    });
+  </script>
+</body>
+</html>
